@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
 
@@ -79,12 +79,12 @@ public class CreateCommentUseCaseUnitTest {
                 1L,
                 "theo"
         );
-
         CreateCommentUseCase.InputValues inputValues = new CreateCommentUseCase.InputValues(
                 inputRequest
         );
-        CreateCommentUseCase.OutputValues outputValues = useCase.execute(inputValues);
 
-        assertFalse(outputValues.success());
+        assertThatThrownBy(() -> useCase.execute(inputValues))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("Already Commented");
     }
 }

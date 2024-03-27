@@ -31,19 +31,10 @@ public class SubscriptionController implements SubscriptionResource {
      * @return A CompletableFuture containing an ApiResponse indicating the success or failure of the operation.
      */
     @Override
-    public CompletableFuture<ApiResponse> saveSubscription(@PathVariable Long userId,
-                                                           @PathVariable Long subjectId) {
-      return useCaseExecutor.execute(
-                addSubscriptionUseCase,
+    public CompletableFuture<ApiResponse> saveSubscription(@PathVariable Long userId, @PathVariable Long subjectId) {
+        return useCaseExecutor.execute(addSubscriptionUseCase,
                 new AddSubscriptionUseCase.InputValues(userId, subjectId),
-                outputValues -> {
-                    if (outputValues.isAdded()) {
-                        return new ApiResponse(true, "Add subscription successfully");
-                    } else {
-                        return new ApiResponse(false, "Error occurred while adding subscription");
-                    }
-                }
-        );
+                outputValues -> new ApiResponse(outputValues.isAdded(), "Add subscription successfully"));
     }
 
     /**
@@ -54,16 +45,8 @@ public class SubscriptionController implements SubscriptionResource {
      */
     @Override
     public CompletableFuture<ApiResponse> removeSubscription(@PathVariable Long subscriptionId) {
-       return useCaseExecutor.execute(
-                removeSubscriptionUseCase,
+        return useCaseExecutor.execute(removeSubscriptionUseCase,
                 new RemoveSubscriptionUseCase.InputValues(subscriptionId),
-                outputValues -> {
-                        if(outputValues.success()) {
-                            return new ApiResponse(true, "Subscription removed with success");
-                        } else {
-                            return new ApiResponse(false, "Error occurred while removing subscription");
-                        }
-                }
-        );
+                outputValues -> new ApiResponse(outputValues.success(), "Subscription removed with success"));
     }
 }

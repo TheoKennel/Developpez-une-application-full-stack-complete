@@ -27,7 +27,7 @@ public class CreateCommentUseCase extends UseCase<CreateCommentUseCase.InputValu
     @Override
     public OutputValues execute(InputValues input) {
         if (isAlreadyComment(input)) {
-            return new OutputValues(false);
+            throw new IllegalStateException("Already Commented");
         }
 
         Comment comment = new Comment(null, input.inputRequest.content(), getArticle(input), input.inputRequest.username());

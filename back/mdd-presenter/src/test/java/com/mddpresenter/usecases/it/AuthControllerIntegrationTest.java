@@ -5,7 +5,6 @@ import com.mddcore.usecases.auth.SignInRequest;
 import com.mddinfrastructure.MddApiApplication;
 import com.mddinfrastructure.request.UserSettingRequest;
 import com.mddinfrastructure.security.jwt.JwtTokenProvider;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 
@@ -23,8 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(classes = MddApiApplication.class)
 @AutoConfigureMockMvc
-@Sql("/data-user.sql")
-@Slf4j
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class AuthControllerIntegrationTest extends BaseControllerTest {
 
     @Autowired

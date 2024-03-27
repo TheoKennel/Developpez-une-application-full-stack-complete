@@ -57,7 +57,7 @@ public class CommentControllerUnitTest {
     public void create_ShouldReturnSuccessApiResponse() {
         ApiResponse expectedApiResponse = new ApiResponse(true, "Create Comment successfully");
 
-        doReturn(CompletableFuture.completedFuture(true))
+        doReturn(CompletableFuture.completedFuture(expectedApiResponse))
                 .when(useCaseExecutor)
                 .execute(eq(createCommentUseCase),
                         any(CreateCommentUseCase.InputValues.class),
@@ -72,14 +72,13 @@ public class CommentControllerUnitTest {
     public void create_ShouldReturnFalseInApiResponse() {
         ApiResponse expectedApiResponse = new ApiResponse(false, "Already Commented");
 
-        doReturn(CompletableFuture.completedFuture(false))
+        doReturn(CompletableFuture.completedFuture(expectedApiResponse))
                 .when(useCaseExecutor)
                 .execute(eq(createCommentUseCase),
                         any(CreateCommentUseCase.InputValues.class),
                         any());
 
         ApiResponse actualApiResponse = commentController.create(commentRequest).join();
-
 
         assertThat(actualApiResponse).isEqualTo(expectedApiResponse);
     }

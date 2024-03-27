@@ -1,4 +1,4 @@
-package com.mddpresenter.usecases.ut.jwt;
+package com.mddpresenter.usecases.ut.security.jwt;
 
 import com.mddcore.domain.models.User;
 import com.mddinfrastructure.security.jwt.CookieJwt;

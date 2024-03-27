@@ -39,6 +39,8 @@ public class UserEntity {
     private String picture;
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<SubscriptionEntity> subscriptionList = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ArticleEntity> articles = new ArrayList<>();
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();

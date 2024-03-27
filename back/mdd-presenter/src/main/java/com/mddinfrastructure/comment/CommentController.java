@@ -50,23 +50,12 @@ public class CommentController implements CommentResource{
      */
     @Override
     public CompletableFuture<ApiResponse> create(@RequestBody CommentRequest request) {
-        CompletableFuture<Boolean> isSuccess =
-                useCaseExecutor.execute(
+               return useCaseExecutor.execute(
                 createCommentUseCase,
                 new CreateCommentUseCase.InputValues(new CreateCommentUseCase.InputRequest(
                         request.content(),
                         request.article_id(),
                         request.userName())),
-                        CreateCommentUseCase.OutputValues::success);
-
-        return isSuccess.thenApply(this::handleCreateCommentResponse);
-    }
-
-    private ApiResponse handleCreateCommentResponse(Boolean success) {
-        if (success) {
-           return new ApiResponse(true, "Create Comment successfully");
-        } else {
-           return new ApiResponse(false, "Already Commented");
-        }
+                        outputValues -> new ApiResponse(outputValues.success(), "Create Comment successfully"));
     }
 }
