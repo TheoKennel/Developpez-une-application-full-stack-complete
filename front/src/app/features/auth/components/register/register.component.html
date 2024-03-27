@@ -1,7 +1,6 @@
-<p>HELLO</p>
-<div class="register" fxLayout="row" fxLayoutAlign="center center">
+<div class="register" fxLayout="column" fxLayoutAlign="center center">
   <h1>Inscription</h1>
-  <form [formGroup]="form" class="form-container" (ngSubmit)="submit()">
+  <form [formGroup]="form" fxLayout="column" class="form-container" (ngSubmit)="submit()">
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Nom d'utilisateur</mat-label>
       <input matInput formControlName="username">
@@ -14,5 +13,6 @@
       <mat-label>Mot de passe</mat-label>
       <input matInput formControlName="password">
     </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">S'inscrire</button>
   </form>
 </div>
