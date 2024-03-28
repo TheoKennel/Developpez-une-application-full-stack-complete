@@ -11,8 +11,9 @@ import {MatCardModule} from "@angular/material/card";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {AuthModule} from "./features/auth/auth.module";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { ArticleComponent } from './features/article/article.component';
+import {AuthInterceptor} from "./guards/auth-interceptor.service";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, MeComponent, NotFoundComponent, ArticleComponent],
@@ -27,7 +28,9 @@ import { ArticleComponent } from './features/article/article.component';
     ReactiveFormsModule,
     MatInputModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
