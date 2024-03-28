@@ -1,4 +1,74 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { height: 100vh; width: 100vw }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+// LOGIN AND REGISTER PAGE
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.authentification_page {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.logo_title {
+  width: 100%;
+  height: 10%;
+  align-content: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.mat-icon {
+  position: absolute;
+  left: 15px;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+.arrow_back-auth-page {
+  font-size: 68px !important;
+  width: 250px !important;
+  height: 55px !important;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.auth_main-class {
+  height: 100%;
+  width: 100vw;
+  margin-top: -80px;
+}
+
+input {
+  border-radius: 8px;
+  border: 1px solid black;
+  justify-content: center;
+  width: 250px;
+  height: 50px;
+}
+
+button {
+  border-radius: 8px;
+  color: #fff;
+  background-color: #7763C5;
+  width: 128px;
+  height: 40px;
+}
+
+.error-message {
+  color: red;
+}
+
+

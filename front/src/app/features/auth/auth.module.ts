@@ -8,24 +8,31 @@ import {LoginComponent} from "./components/login/login.component";
 import {AuthRoutingModule} from "./auth-routing.module";
 import {CommonModule} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import { HeaderComponent } from './header/header.component';
+import {MatIconModule} from "@angular/material/icon";
+import {MatIconHarness} from "@angular/material/icon/testing";
 
 const materialModules = [
   MatButtonModule,
   MatCardModule,
   MatFormFieldModule,
+  MatIconModule,
   MatInputModule
 ]
 
 @NgModule({
   declarations: [
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent
   ],
   imports: [
     AuthRoutingModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    FlexLayoutModule,
     ...materialModules
   ]
 })

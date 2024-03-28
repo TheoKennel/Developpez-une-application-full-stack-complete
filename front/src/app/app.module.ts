@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -12,10 +11,11 @@ import {MatCardModule} from "@angular/material/card";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {AuthModule} from "./features/auth/auth.module";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
+import { ArticleComponent } from './features/article/article.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, MeComponent, NotFoundComponent],
+  declarations: [AppComponent, HomeComponent, MeComponent, NotFoundComponent, ArticleComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -25,8 +25,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     MatButtonModule,
     MatCardModule,
     ReactiveFormsModule,
-    MatInputModule,
-    FlexLayoutModule
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent],

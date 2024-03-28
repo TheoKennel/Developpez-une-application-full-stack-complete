@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {RegisterRequest} from "../../interfaces/registerRequest.interface";
-import {LoginRequest} from "../../interfaces/loginRequest.interface";
+import {error} from "@angular/compiler-cli/src/transformers/util";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ import {LoginRequest} from "../../interfaces/loginRequest.interface";
 })
 export class RegisterComponent  {
 
-  public onError = false;
+  public errorMessage : string | null = null
   public form = this.fb.group ({ email: ['', [Validators.required, Validators.email]],
   username: ['', [Validators.required, Validators.min(3), Validators.maxLength(20)]],
   password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(40)]],
@@ -26,8 +27,14 @@ export class RegisterComponent  {
     const registerRequest = this.form.value as RegisterRequest;
     this.authService.register(registerRequest).subscribe({
         next: (_) => this.router.navigate(['/login']),
-        error: _ => this.onError = true,
+        error: (error: HttpErrorResponse) => {
+          this.errorMessage = error.error.message
+        }
     }
     );
+  }
+
+  public navigateHome() {
+    this.router.navigate(['/'])
   }
 }

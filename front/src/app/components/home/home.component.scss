@@ -18,22 +18,22 @@
 .home_button {
   display: flex;
   flex-direction: row;
-  width: 100%;
   justify-content: space-evenly;
+  width: 377px;
+  height: 40px;
 }
 
 .home img {
-  width: 80%;
-  max-width: 100%;
+  width: 412px;
+  height: 238px;
+  top: 286px;
+  left: 411px;
   height: auto;
 }
 
 .home_button button {
-  width: 20%;
-  font-size: medium;
-  margin: 0 10px;
   border-radius: 8px;
+  width: 140px;
+  height: 40px;
   border: 1px solid black;
-  text-align: center;
-  font-weight: bold;
 }

@@ -1,18 +1,23 @@
-<div class="register" fxLayout="column" fxLayoutAlign="center center">
-  <h1>Inscription</h1>
+<div class="authentification_page">
+  <app-header></app-header>
+  <div class="logo_title" fxLayout="row" fxLayoutAlign="center center">
+    <mat-icon class="arrow_back-auth-page" (click)="navigateHome()">arrow_backward</mat-icon>
+    <h1>Inscription</h1>
+  </div>
   <form [formGroup]="form" fxLayout="column" class="form-container" (ngSubmit)="submit()">
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Nom d'utilisateur</mat-label>
-      <input matInput formControlName="username">
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Adresse e-mail</mat-label>
-      <input matInput formControlName="email">
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Mot de passe</mat-label>
-      <input matInput formControlName="password">
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">S'inscrire</button>
+    <div class="form-field" fxLayout="column">
+      <label for="username">Nom d'utilisateur</label>
+      <input id="username" type="text" formControlName="username">
+    </div>
+    <div class="form-field" fxLayout="column">
+      <label for="email">Adresse e-mail</label>
+      <input id="email" type="email" formControlName="email">
+    </div>
+    <div class="form-field" fxLayout="column">
+      <label for="password">Mot de passe</label>
+      <input id="password" type="password" formControlName="password">
+    </div>
+    <button type="submit" [disabled]="form.invalid">S'inscrire</button>
+    <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>
   </form>
 </div>
