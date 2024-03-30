@@ -6,6 +6,7 @@ import {RegisterRequest} from "../../interfaces/registerRequest.interface";
 import {HttpErrorResponse} from "@angular/common/http";
 import {LoginRequest} from "../../interfaces/loginRequest.interface";
 import {LocalStorageService} from "../../../../storage/local-storage.service";
+import {NavigationService} from "../../../../common/navigation.service";
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,9 @@ export class LoginComponent {
   constructor(private authService: AuthService,
               private fb: FormBuilder,
               private router: Router,
-              private localStorage: LocalStorageService) { }
+              private localStorage: LocalStorageService,
+              private navigationService : NavigationService
+  ) { }
 
   public submit() {
     const loginRequest = this.form.value as LoginRequest;
@@ -31,6 +34,7 @@ export class LoginComponent {
           this.localStorage.setItem("id", userInformation.id.toString())
           this.localStorage.setItem("pictureUrl", userInformation.picture)
           this.localStorage.setItem("isLogged", "true")
+          this.localStorage.setItem("userName", userInformation.userName)
           this.router.navigate(['/article'])
         },
         error: (error: HttpErrorResponse) => {
@@ -41,6 +45,6 @@ export class LoginComponent {
   }
 
   public navigateHome() {
-    this.router.navigate(['/'])
+    this.navigationService.navigateToHome()
   }
 }

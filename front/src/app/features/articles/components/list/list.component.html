@@ -1,0 +1,22 @@
+<div class="listArticles">
+  <mat-card>
+    <mat-card-header fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-card-title class="article_title">Articles</mat-card-title>
+      <button mat-raised-button color="primary" routerLink="create">
+        <mat-icon>add</mat-icon>
+        <span>Créer un articles</span>
+      </button>
+    </mat-card-header>
+    <div class="articles_items" fxLayout="row wrap" fxLayout.lt-md="column">
+      <mat-card class="article" *ngFor="let article of (articles$ | async)" fxFlex (click)="navigateToDetail(article.id)">
+       <mat-card-header>
+        <mat-card-title>{{ article.title }}</mat-card-title>
+        <mat-card-subtitle>{{article.createdAt | date: 'mediumDate' }} {{ article.authorName}} </mat-card-subtitle>
+      </mat-card-header>
+        <mat-card-content>
+        <p>{{ article.content }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card>
+</div>

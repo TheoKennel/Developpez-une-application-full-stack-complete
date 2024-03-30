@@ -5,7 +5,8 @@ import {NgModule} from "@angular/core";
 
 const routes : Routes = [
   { title: 'Login', path: 'login', component : LoginComponent },
-  { title: 'Register', path: 'register', component : RegisterComponent }
+  { title: 'Register', path: 'register', component : RegisterComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ]
 
 @NgModule({

@@ -1,8 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse, HttpClient } from '@angular/common/http';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpErrorResponse,
+  HttpClient,
+  HttpHeaders
+} from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import {BehaviorSubject, finalize, Observable, throwError} from 'rxjs';
 import { catchError, switchMap, filter, take } from 'rxjs/operators';
+import {LocalStorageService} from "../../storage/local-storage.service";
+import {NavigationService} from "../../common/navigation.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +21,10 @@ export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router,
+              private http: HttpClient,
+              private localStorage : LocalStorageService,
+              private navigationService: NavigationService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     return next.handle(req).pipe(
@@ -24,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
     if (error.status === 401) {
       return this.handle401Error(req, next);
     }
-    return of(error);
+     return throwError(() => new Error(`Error occurred : ${error.message}`));
   }
 
   private handle401Error(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
@@ -37,7 +49,15 @@ export class AuthInterceptor implements HttpInterceptor {
           this.isRefreshing = false;
           this.refreshTokenSubject.next(token);
           return next.handle(req);
-        }));
+        }),
+        catchError((error) => {
+          this.isRefreshing = false;
+          this.localStorage.clear();
+          this.navigationService.navigateToHome();
+          return throwError(() => new Error('Failed to refresh token'));
+        }),
+        finalize(() => this.isRefreshing = false)
+      );
     } else {
       return this.refreshTokenSubject.pipe(
         filter(token => token != null),
@@ -48,12 +68,8 @@ export class AuthInterceptor implements HttpInterceptor {
     }
   }
 
-  refreshToken(): Observable<any> {
-    return this.http.post<any>(`http://localhost3001/api/auth/refresh-token`, { withCredentials: true }).pipe(
-      catchError((error: any) => {
-        this.router.navigate(['login']);
-        return of(error);
-      })
-    );
+  private refreshToken(): Observable<any> {
+    console.log("Refresh token")
+    return this.http.post<any>(`http://localhost:3001/api/auth/refresh-token`, {}, {withCredentials: true})
   }
 }

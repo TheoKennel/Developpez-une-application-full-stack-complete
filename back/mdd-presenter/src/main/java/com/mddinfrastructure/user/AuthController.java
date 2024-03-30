@@ -11,7 +11,6 @@ import com.mddinfrastructure.security.jwt.JwtTokenProvider;
 import com.mddinfrastructure.security.usecases.AuthenticateUserUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,7 +65,7 @@ public class AuthController implements AuthResource {
         );
 
         return authenticate.thenCompose(value ->
-                jwtService.generateAuthResponse(value.userDetails(), value.jwtCookie()));
+                jwtService.generateAuthResponse(value.userDetails()));
     }
 
     /**

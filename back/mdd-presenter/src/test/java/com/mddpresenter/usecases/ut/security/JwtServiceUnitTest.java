@@ -45,8 +45,9 @@ public class JwtServiceUnitTest {
         ResponseCookie jwtRefreshCookie = ResponseCookie.from("refresh", "RefreshToken").build();
         Long userId = 1L;
         String pictureUrl = "http://example.test/jpg";
+        String userName = "username";
 
-        AuthResponse expectedBody = new AuthResponse(userId, pictureUrl);
+        AuthResponse expectedBody = new AuthResponse(userId, pictureUrl, userName);
         ResponseEntity<AuthResponse> expectedResponse = ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                 .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
@@ -57,7 +58,7 @@ public class JwtServiceUnitTest {
         doReturn(CompletableFuture.completedFuture(expectedResponse)).when(useCaseExecutor)
                 .execute(any(), any(CreateRefreshTokenUseCase.InputValues.class), any());
 
-        CompletableFuture<ResponseEntity<?>> resultFuture = jwtService.generateAuthResponse(userDetails, jwtCookie);
+        CompletableFuture<ResponseEntity<?>> resultFuture = jwtService.generateAuthResponse(userDetails);
         ResponseEntity<?> result = resultFuture.join();
 
         assertThat(result).isEqualTo(expectedResponse);

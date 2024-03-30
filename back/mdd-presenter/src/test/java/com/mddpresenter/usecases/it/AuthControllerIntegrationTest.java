@@ -118,14 +118,4 @@ public class AuthControllerIntegrationTest extends BaseControllerTest {
                 .andExpect(cookie().maxAge(jwtRefreshCookie, 0))
                 .andExpect(content().string("You've been signed out successfully!"));
     }
-
-//    @Test
-//    @Order(5)
-//    @WithMockUser
-//    public void refreshToken_ShouldReturnNewAccessToken() throws Exception {
-//        RequestBuilder requestBuilder = asyncPostRequestWithCookies("/api/auth/refresh-token", "", cookieName, jwtRefreshCookie);
-//        mockMvc.perform(requestBuilder)
-//                .andExpect(status().isOk())
-//                .andExpect(content().string(containsString("Token is refreshed successfully!")));
-//
 }

@@ -22,6 +22,4 @@ public interface AuthResource {
 
     @PostMapping("/refresh-token")
     CompletableFuture<ResponseEntity<?>> refreshToken(HttpServletRequest request);
-
-
 }

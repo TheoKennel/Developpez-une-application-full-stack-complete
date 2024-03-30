@@ -3,8 +3,8 @@ import {AuthService} from "../../services/auth.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {RegisterRequest} from "../../interfaces/registerRequest.interface";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 import {HttpErrorResponse} from "@angular/common/http";
+import {NavigationService} from "../../../../common/navigation.service";
 
 @Component({
   selector: 'app-register',
@@ -21,12 +21,14 @@ export class RegisterComponent  {
 
   constructor(private authService: AuthService,
               private fb: FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              private navigationService : NavigationService
+  ) { }
 
   public submit() {
     const registerRequest = this.form.value as RegisterRequest;
     this.authService.register(registerRequest).subscribe({
-        next: (_) => this.router.navigate(['/login']),
+        next: (_) => this.router.navigate(['/auth/login']),
         error: (error: HttpErrorResponse) => {
           this.errorMessage = error.error.message
         }
@@ -35,6 +37,6 @@ export class RegisterComponent  {
   }
 
   public navigateHome() {
-    this.router.navigate(['/'])
+    this.navigationService.navigateToHome()
   }
 }

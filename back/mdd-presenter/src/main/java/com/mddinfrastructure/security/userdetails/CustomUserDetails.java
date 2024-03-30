@@ -29,6 +29,13 @@ public class CustomUserDetails implements UserDetails {
     public String getPictureUrl() {
         return user.getPicture();
     }
+    public Long getId() {
+        return user.getId();
+    }
+
+    public String getUserName() {
+        return user.getUsername();
+    }
 
     @Override
     public String getPassword() {

@@ -19,7 +19,6 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class JwtService {
     private final CookieJwt cookieJwt;
-    private final JwtTokenProvider jwtTokenProvider;
     private final CreateRefreshTokenUseCase createRefreshTokenUseCase;
     private final UseCaseExecutor useCaseExecutor;
     private final FindByTokenUseCase findByTokenUseCase;
@@ -30,10 +29,9 @@ public class JwtService {
     @Value("${mdd.app.jwtRefreshExpirationsMs}")
     private Long refreshTokenExpirationMs;
 
-    public JwtService(CookieJwt cookieJwt, JwtTokenProvider jwtTokenProvider, CreateRefreshTokenUseCase createRefreshTokenUseCase, UseCaseExecutor useCaseExecutor, FindByTokenUseCase findByTokenUseCase, VerifyTokenExpirationUseCase verifyTokenExpirationUseCase,
+    public JwtService(CookieJwt cookieJwt, CreateRefreshTokenUseCase createRefreshTokenUseCase, UseCaseExecutor useCaseExecutor, FindByTokenUseCase findByTokenUseCase, VerifyTokenExpirationUseCase verifyTokenExpirationUseCase,
                       UpdateRefreshTokenUseCase updateRefreshTokenUseCase, DeleteRefreshTokenUseCase deleteRefreshTokenUseCase) {
         this.cookieJwt = cookieJwt;
-        this.jwtTokenProvider = jwtTokenProvider;
         this.createRefreshTokenUseCase = createRefreshTokenUseCase;
         this.useCaseExecutor = useCaseExecutor;
         this.findByTokenUseCase = findByTokenUseCase;
@@ -46,10 +44,9 @@ public class JwtService {
      * Generates an authentication response containing JWT cookies.
      *
      * @param userDetails The UserDetails object containing user details.
-     * @param jwtCookie   The JWT cookie to be included in the response.
      * @return A CompletableFuture containing the ResponseEntity with the authentication response.
      */
-    public CompletableFuture<ResponseEntity<?>> generateAuthResponse(CustomUserDetails userDetails, ResponseCookie jwtCookie) {
+    public CompletableFuture<ResponseEntity<?>> generateAuthResponse(CustomUserDetails userDetails) {
         return useCaseExecutor.execute(
                 createRefreshTokenUseCase,
                 new CreateRefreshTokenUseCase.InputValues(userDetails.getUser().getId(), refreshTokenExpirationMs),
@@ -60,7 +57,7 @@ public class JwtService {
                     return ResponseEntity.ok()
                             .header(HttpHeaders.SET_COOKIE, cookie.toString())
                             .header(HttpHeaders.SET_COOKIE, jwtRefresh.toString())
-                            .body(new AuthResponse(userDetails.getUser().getId(), userDetails.getPictureUrl()));
+                            .body(new AuthResponse(userDetails.getId(), userDetails.getPictureUrl(), userDetails.getUserName()));
                 }
         );
     }

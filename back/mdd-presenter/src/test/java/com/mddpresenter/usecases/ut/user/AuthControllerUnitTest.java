@@ -70,7 +70,7 @@ public class AuthControllerUnitTest {
 
         doReturn(CompletableFuture.completedFuture(expectedResponseEntity))
                 .when(jwtService)
-                .generateAuthResponse(any(CustomUserDetails.class), any(ResponseCookie.class));
+                .generateAuthResponse(any(CustomUserDetails.class));
 
         CompletableFuture<?> resultFuture = authController.loginUser(signInRequest);
 

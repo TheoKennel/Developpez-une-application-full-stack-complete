@@ -1,14 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import {LoginComponent} from "./features/auth/components/login/login.component";
-import {RegisterComponent} from "./features/auth/components/register/register.component";
-import {ArticleComponent} from "./features/article/article.component";
+import {AuthGuard} from "./guards/auth.guard";
+import {NotFoundComponent} from "./components/not-found/not-found.component";
+import {MeComponent} from "./components/me/me.component";
+import {HomeComponent} from "./features/auth/components/home/home.component";
 
-// consider a guard combined with canLoad / canActivate route option
-// to manage unauthenticated user to access private routes
-const routes: Routes = [{ path: '', component: HomeComponent },
-  { title: 'Article', path: 'article', component: ArticleComponent}
+
+const routes: Routes = [
+  { title: 'Home', path: '', component: HomeComponent },
+  { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
+  {
+    path: 'article',
+    loadChildren: () => import('./features/articles/article.module').then(m => m.ArticleModule)
+  },
+  {
+    path: 'me', canActivate: [AuthGuard],
+    component: MeComponent
+  },
+  {
+    path: 'subjects', canActivate: [AuthGuard],
+    loadChildren: () => import('./features/subjects/subjects.module').then(m => m.SubjectsModule)
+  },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '404' }
 ];
 
 @NgModule({
