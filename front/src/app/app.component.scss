@@ -1,0 +1,31 @@
+.app {
+  width: 100vw;
+  height: 104px;
+  border-bottom: 1px solid black;
+  margin-bottom: 25px;
+  overflow-y: hidden ;
+}
+
+img {
+  width: 155px;
+  height: 91px;
+  margin-left: 25px;
+}
+
+.header {
+  cursor: pointer;
+  height: 100%;
+}
+
+.header_right {
+  width: 240px;
+  height: 100%;
+  margin-right: 35px;
+}
+
+.header_right > span {
+  font-size: 21px;
+  margin-right: 15px;
+  font-weight: 500;
+}
+

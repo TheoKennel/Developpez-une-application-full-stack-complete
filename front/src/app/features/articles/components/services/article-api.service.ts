@@ -12,7 +12,7 @@ export class ArticleApiService {
     return this.httpClient.get<Article[]>("http://localhost:3001/api/article", {withCredentials: true});
   }
 
-  public detail(id: number) {
+  public detail(id: string) {
     return this.httpClient.get<Article>(`http://localhost:3001/api/article/${id}`, {withCredentials: true});
   }
 

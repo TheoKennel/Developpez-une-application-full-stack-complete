@@ -1,0 +1,15 @@
+<div class="authentification_page">
+  <div class="logo_title" fxLayout="row" fxLayoutAlign="center center">
+    <mat-icon class="arrow_back-auth-page" (click)="navigateHome.emit()">arrow_backward</mat-icon>
+    <h1>{{ title }}</h1>
+  </div>
+  <form [formGroup]="form" fxLayout="column" class="form-container" (ngSubmit)="submitForm.emit(form.value)">
+    <div class="form-field" fxLayout="column" *ngFor="let field of fields">
+      <label [for]="field.name">{{ field.label }}</label>
+      <input [id]="field.name" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
+    </div>
+    <button type="submit" [disabled]="form.invalid">{{ buttonText }}</button>
+    <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>
+  </form>
+</div>
+

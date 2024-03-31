@@ -4,8 +4,7 @@ import {
   HttpRequest,
   HttpHandler,
   HttpErrorResponse,
-  HttpClient,
-  HttpHeaders
+  HttpClient
 } from '@angular/common/http';
 import { Router } from '@angular/router';
 import {BehaviorSubject, finalize, Observable, throwError} from 'rxjs';
@@ -36,7 +35,8 @@ export class AuthInterceptor implements HttpInterceptor {
     if (error.status === 401) {
       return this.handle401Error(req, next);
     }
-     return throwError(() => new Error(`Error occurred : ${error.message}`));
+    const errMsg = error.error && error.error.message ? error.error.message : error.message;
+    return throwError(() => new Error(`Error occurred : ${errMsg}`));
   }
 
   private handle401Error(req: HttpRequest<any>, next: HttpHandler): Observable<any> {

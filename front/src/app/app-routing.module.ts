@@ -18,7 +18,7 @@ const routes: Routes = [
     component: MeComponent
   },
   {
-    path: 'subjects', canActivate: [AuthGuard],
+    path: 'subject', canActivate: [AuthGuard],
     loadChildren: () => import('./features/subjects/subjects.module').then(m => m.SubjectsModule)
   },
   { path: '404', component: NotFoundComponent },

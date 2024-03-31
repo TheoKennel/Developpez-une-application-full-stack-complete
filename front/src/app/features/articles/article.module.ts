@@ -2,7 +2,6 @@ import {NgModule} from "@angular/core";
 import { ListComponent } from './components/list/list.component';
 import { CreateComponent } from './components/create/create.component';
 import { DetailsComponent } from './components/details/details.component';
-import { CommentsComponent } from './components/comments/comments.component';
 import {MatCardModule} from "@angular/material/card";
 import {FlexModule} from "@angular/flex-layout";
 import {RouterLink} from "@angular/router";
@@ -16,7 +15,6 @@ import {ArticleRoutingModule} from "./article-routing.module";
     ListComponent,
     CreateComponent,
     DetailsComponent,
-    CommentsComponent
   ],
   imports: [
     MatCardModule,

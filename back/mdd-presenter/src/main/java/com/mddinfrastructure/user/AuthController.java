@@ -9,6 +9,8 @@ import com.mddinfrastructure.security.jwt.CookieJwt;
 import com.mddinfrastructure.security.jwt.JwtService;
 import com.mddinfrastructure.security.jwt.JwtTokenProvider;
 import com.mddinfrastructure.security.usecases.AuthenticateUserUseCase;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,6 +45,8 @@ public class AuthController implements AuthResource {
      */
     @Override
     public CompletableFuture<SignInRequest> registerUser(@RequestBody UserSettingRequest userSettingRequest) {
+        Logger log = LoggerFactory.logger(AuthController.class);
+        log.info("Registering user: " + userSettingRequest.password());
         return useCaseExecutor.execute(
                 registerUseCase,
                 new RegisterUseCase.InputValues(UserUpdateMapper.INSTANCE.toDomain(userSettingRequest)),
@@ -58,6 +62,8 @@ public class AuthController implements AuthResource {
      */
     @Override
     public CompletableFuture<ResponseEntity<?>> loginUser(@RequestBody SignInRequest signInRequest) {
+        Logger log = LoggerFactory.logger(AuthController.class);
+        log.info("Signin user: " + signInRequest.password());
         CompletableFuture<AuthenticateUserUseCase.OutputValues> authenticate = useCaseExecutor.execute(
                 authenticateUserUseCase,
                 new AuthenticateUserUseCase.InputValues(signInRequest),

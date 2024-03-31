@@ -20,8 +20,4 @@ export class AuthService {
   public login(loginRequest: LoginRequest): Observable<UserInformation> {
     return this.httpClient.post<UserInformation>(`http://localhost:3001/api/auth/login`, loginRequest, { withCredentials: true })
   }
-
-  public refreshToken(): Observable<any> {
-    return this.httpClient.post<any>(`http://localhost:3001/api/auth/refresh-token`, {}, { withCredentials: true })
-  }
 }

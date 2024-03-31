@@ -13,6 +13,9 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./features/interceptors/auth-interceptor.service";
 import { SubjectsComponent } from './features/subjects/subjects.component';
 import {AppRoutingModule} from "./app-routing.module";
+import {FlexModule} from "@angular/flex-layout";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, MeComponent, NotFoundComponent, SubjectsComponent],
@@ -24,7 +27,10 @@ import {AppRoutingModule} from "./app-routing.module";
     MatButtonModule,
     MatCardModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    FlexModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

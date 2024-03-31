@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {async, Observable} from "rxjs";
+import { Component } from '@angular/core';
+import {Observable} from "rxjs";
 import {Article} from "../interface/article.interface";
 import {ArticleApiService} from "../services/article-api.service";
 import {Router} from "@angular/router";
@@ -18,6 +18,6 @@ export class ListComponent {
   ) { }
 
   public navigateToDetail(id: number) {
-    this.router.navigate([`/articles/${id}`]);
+    this.router.navigate([`/${id}`]);
   }
 }

@@ -9,8 +9,8 @@ import {AuthRoutingModule} from "./auth-routing.module";
 import {CommonModule} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FlexLayoutModule} from "@angular/flex-layout";
-import { HeaderComponent } from './components/header/header.component';
 import {MatIconModule} from "@angular/material/icon";
+import {FormComponent} from "../form/form.component";
 
 const materialModules = [
   MatButtonModule,
@@ -24,7 +24,7 @@ const materialModules = [
   declarations: [
     RegisterComponent,
     LoginComponent,
-    HeaderComponent
+    FormComponent
   ],
   imports: [
     AuthRoutingModule,

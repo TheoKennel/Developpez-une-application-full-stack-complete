@@ -1,19 +1,8 @@
-<div class="authentification_page">
-  <app-header></app-header>
-  <div class="logo_title" fxLayout="row" fxLayoutAlign="center center">
-    <mat-icon class="arrow_back-auth-page" (click)="navigateHome()">arrow_backward</mat-icon>
-    <h1>Se connecter</h1>
-  </div>
-  <form [formGroup]="form" fxLayout="column" class="form-container" (ngSubmit)="submit()">
-    <div class="form-field" fxLayout="column">
-      <label for="email">E-mail ou nom d'utilisateur</label>
-      <input id="email" type="email" formControlName="email">
-    </div>
-    <div class="form-field" fxLayout="column">
-      <label for="password">Mot de passe</label>
-      <input id="password" type="password" formControlName="password">
-    </div>
-    <button type="submit" [disabled]="form.invalid">S'inscrire</button>
-    <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>
-  </form>
-</div>
+<app-form [title]="'Se connecter'"
+          [buttonText]="'S\'inscrire'"
+          [form]="form"
+          [errorMessage]="errorMessage"
+          [fields]="fields"
+          (submitForm)="submit()"
+          (navigateHome)="navigateHome()">
+</app-form>

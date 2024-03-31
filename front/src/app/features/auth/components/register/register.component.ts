@@ -19,6 +19,12 @@ export class RegisterComponent  {
   password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(40)]],
 });
 
+  public fields = [
+    { name: 'username', label: "Nom d'utilisateur", type: 'text', placeholder: ' ' },
+    { name: 'email', label: 'Adresse e-mail', type: 'email', placeholder: '' },
+    { name: 'password', label: 'Mot de passe', type: 'password', placeholder: '' }
+  ];
+
   constructor(private authService: AuthService,
               private fb: FormBuilder,
               private router: Router,
@@ -27,10 +33,12 @@ export class RegisterComponent  {
 
   public submit() {
     const registerRequest = this.form.value as RegisterRequest;
+    console.log('Password request : ', registerRequest.password)
     this.authService.register(registerRequest).subscribe({
         next: (_) => this.router.navigate(['/auth/login']),
         error: (error: HttpErrorResponse) => {
-          this.errorMessage = error.error.message
+          console.log(error.message)
+          this.errorMessage = error.message
         }
     }
     );

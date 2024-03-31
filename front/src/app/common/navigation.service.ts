@@ -11,4 +11,8 @@ export class NavigationService {
   navigateToHome() {
     this.router.navigate(['/'])
   }
+
+  navigateToArticle() {
+    this.router.navigate(['/article'])
+  }
 }
