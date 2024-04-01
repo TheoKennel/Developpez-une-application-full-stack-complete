@@ -4,6 +4,7 @@ import {AuthGuard} from "./guards/auth.guard";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {MeComponent} from "./components/me/me.component";
 import {HomeComponent} from "./features/auth/components/home/home.component";
+import {SubjectsComponent} from "./features/subjects/subjects.component";
 
 
 const routes: Routes = [
@@ -18,8 +19,7 @@ const routes: Routes = [
     component: MeComponent
   },
   {
-    path: 'subject', canActivate: [AuthGuard],
-    loadChildren: () => import('./features/subjects/subjects.module').then(m => m.SubjectsModule)
+    path: 'subject', canActivate: [AuthGuard], component: SubjectsComponent
   },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '404' }

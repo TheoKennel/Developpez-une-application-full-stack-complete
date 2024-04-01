@@ -24,6 +24,7 @@ public class ArticleEntity {
     @JoinColumn(name = "subject_id")
     private SubjectEntity subject;
     private String title;
+    @Column(length = 650000)
     private String content;
     @CreatedDate
     @Column(name = "created_at", updatable = false)

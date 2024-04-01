@@ -7,5 +7,5 @@ export interface Article {
   SubjectName: string;
   content: string;
   comments: Comment[];
-  createdAt: Date;
+  date: Date;
 }

@@ -17,6 +17,6 @@ export class ArticleApiService {
   }
 
   public create(article: ArticleRequest) {
-    return this.httpClient.post("http://localhost:3001/api/article", article, {withCredentials: true});
+    return this.httpClient.post("http://localhost:3001/api/article/create", article, {withCredentials: true});
   }
 }

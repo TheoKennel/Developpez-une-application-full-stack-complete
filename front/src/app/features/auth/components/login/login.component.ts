@@ -5,7 +5,6 @@ import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
 import {LoginRequest} from "../../interfaces/loginRequest.interface";
 import {LocalStorageService} from "../../../../storage/local-storage.service";
-import {NavigationService} from "../../../../common/navigation.service";
 
 @Component({
   selector: 'app-login',
@@ -26,8 +25,7 @@ export class LoginComponent {
   constructor(private authService: AuthService,
               private fb: FormBuilder,
               private router: Router,
-              private localStorage: LocalStorageService,
-              private navigationService : NavigationService
+              private localStorage: LocalStorageService
   ) { }
 
   public submit() {
@@ -48,7 +46,7 @@ export class LoginComponent {
     );
   }
 
-  public navigateHome() {
-    this.navigationService.navigateToHome()
+  public back() {
+    window.history.back()
   }
 }

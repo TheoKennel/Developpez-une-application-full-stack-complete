@@ -17,12 +17,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   gap: 20px;
 }
 
-.authentification_page {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-
 .logo_title {
   width: 100%;
   height: 10%;
@@ -60,6 +54,9 @@ input {
   justify-content: center;
   width: 250px;
   height: 50px;
+  font-size: 16px;
+  padding: 0 10px;
+  outline: #7763C5;
 }
 
 button {
@@ -73,5 +70,65 @@ button {
 .error-message {
   color: red;
 }
+
+
+// Article Thèmes : pages :
+.list-main {
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+}
+
+.list-items {
+  width: 100%;
+  justify-content: space-between;
+  align-content: flex-start;
+  padding: 40px;
+}
+
+.article_header {
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  padding: 5px;
+}
+
+.article_header-filter {
+  height: 40px;
+  cursor: pointer;
+}
+
+.article_header-filter span {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 8px;
+}
+
+.list {
+  width: 48%;
+  height: 220px;
+  justify-content: flex-end;
+  padding: 5px;
+}
+
+.list-details {
+  width: 100%;
+  justify-content: space-evenly;
+  border-radius: 8px;
+  background-color: #F5F5F5;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.article_details-subtitles {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.article_details-subtitles span {
+  font-size: 16px;
+  margin-right: 20px;
+}
+
 
 

@@ -7,8 +7,11 @@ import {FlexModule} from "@angular/flex-layout";
 import {RouterLink} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
-import {AsyncPipe, DatePipe, NgForOf} from "@angular/common";
+import {AsyncPipe, DatePipe, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {ArticleRoutingModule} from "./article-routing.module";
+import {AuthModule} from "../auth/auth.module";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -18,6 +21,7 @@ import {ArticleRoutingModule} from "./article-routing.module";
   ],
   imports: [
     MatCardModule,
+    MatSnackBarModule,
     FlexModule,
     ArticleRoutingModule,
     RouterLink,
@@ -25,7 +29,11 @@ import {ArticleRoutingModule} from "./article-routing.module";
     MatIconModule,
     AsyncPipe,
     DatePipe,
-    NgForOf
+    NgForOf,
+    AuthModule,
+    NgStyle,
+    NgIf,
+    ReactiveFormsModule
   ],
 })
 

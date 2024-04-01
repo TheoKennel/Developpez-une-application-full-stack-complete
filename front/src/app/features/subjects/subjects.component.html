@@ -1,1 +1,11 @@
-<p>subjects works!</p>
+<div class="list-items" fxLayout="row wrap">
+<div class="list" fxLayoutAlign="space-between" *ngFor="let subject of (subject$ | async)">
+  <div class="list-details" fxLayout="column">
+    <h1>{{ subject.name }}</h1>
+    <p>{{ subject.description }}</p>
+    <div class ="subscription_button">
+    <button>S'abonner</button>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,51 @@
+.custom-select select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 8px;
+  border : 1px solid #7763C5;
+  padding: 0 10px;
+  width: 272px;
+  height: 52px;
+  background-color: white;
+  font-size: 16px;
+  cursor: pointer;
+  color: dimgrey;
+  outline: #7763C5;
+}
+
+.custom-select::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+input {
+  border : 1px solid #7763C5;
+}
+
+textarea {
+  border-radius: 8px;
+  border : 1px solid #7763C5;
+  justify-content: center;
+  width: 250px;
+  height: 250px;
+  font-size: 16px;
+  padding: 12px;
+  outline: #7763C5;
+  resize: none;
+  font-family: sans-serif;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.form-container {
+  margin-top: -20px;
+}
+

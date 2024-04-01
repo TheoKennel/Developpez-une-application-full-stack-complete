@@ -1,6 +1,6 @@
 <div class="app">
     <div class="header" fxLayout="row" fxLayoutAlign="space-between center"  *ngIf="$isLoggedIn() | async; else notLogged">
-      <img src="assets/logo_p6.png" alt="logo" (click)="goToArticle()"/>
+      <img src="assets/logo_p6.png" alt="logo" routerLink="article"/>
       <div class="header_right" fxLayoutAlign="space-between center">
         <span routerLink="article" class="link">Articles</span>
         <span routerLink="subject" class="link">Thèmes</span>
@@ -10,10 +10,8 @@
     </div>
   <ng-template #notLogged>
     <div>
-    <img src="assets/logo_p6.png" alt="logo" (click)="goToLogin()"/>
+    <img src="assets/logo_p6.png" alt="logo" routerLink="/"/>
     </div>
   </ng-template>
 </div>
-
-
 <router-outlet></router-outlet>

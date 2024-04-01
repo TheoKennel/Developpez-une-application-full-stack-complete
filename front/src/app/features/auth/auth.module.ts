@@ -26,6 +26,9 @@ const materialModules = [
     LoginComponent,
     FormComponent
   ],
+  exports: [
+    FormComponent
+  ],
   imports: [
     AuthRoutingModule,
     CommonModule,

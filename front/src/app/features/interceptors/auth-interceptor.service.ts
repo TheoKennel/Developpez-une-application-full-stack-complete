@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 import {BehaviorSubject, finalize, Observable, throwError} from 'rxjs';
 import { catchError, switchMap, filter, take } from 'rxjs/operators';
 import {LocalStorageService} from "../../storage/local-storage.service";
-import {NavigationService} from "../../common/navigation.service";
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +19,10 @@ export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private router: Router,
+  constructor(
               private http: HttpClient,
               private localStorage : LocalStorageService,
-              private navigationService: NavigationService) {}
+              private router : Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     return next.handle(req).pipe(
@@ -53,7 +52,7 @@ export class AuthInterceptor implements HttpInterceptor {
         catchError((error) => {
           this.isRefreshing = false;
           this.localStorage.clear();
-          this.navigationService.navigateToHome();
+          this.navigateToHome();
           return throwError(() => new Error('Failed to refresh token'));
         }),
         finalize(() => this.isRefreshing = false)
@@ -71,5 +70,9 @@ export class AuthInterceptor implements HttpInterceptor {
   private refreshToken(): Observable<any> {
     console.log("Refresh token")
     return this.http.post<any>(`http://localhost:3001/api/auth/refresh-token`, {}, {withCredentials: true})
+  }
+
+  private navigateToHome() {
+    this.router.navigate([''])
   }
 }

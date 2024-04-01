@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {NavigationService} from "../../../../common/navigation.service";
 import {ArticleApiService} from "../services/article-api.service";
 import {ActivatedRoute} from "@angular/router";
 import {Article} from "../interface/article.interface";
-import {Observable, switchMap} from "rxjs";
 import {Comment} from "../interface/comment.interface";
 
 @Component({
@@ -19,8 +17,7 @@ export class DetailsComponent implements OnInit {
 
   constructor(
     private articleApiService: ArticleApiService,
-    private route : ActivatedRoute,
-    private navigationService: NavigationService,
+    private route : ActivatedRoute
   ) {
     this.articleId = this.route.snapshot.paramMap.get('id')!;
     }

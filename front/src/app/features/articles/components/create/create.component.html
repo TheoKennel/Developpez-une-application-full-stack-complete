@@ -1,1 +1,23 @@
-<p>create works!</p>
+<div class="authentification_page">
+  <div class="logo_title" fxLayout="row" fxLayoutAlign="center center">
+    <mat-icon class="arrow_back-auth-page" (click)="back()">arrow_backward</mat-icon>
+    <h1>Créer un nouvel article</h1>
+  </div>
+  <form [formGroup]="form" fxLayout="column" class="form-container" (ngSubmit)="submitForm()">
+    <div class="form-field custom-select" fxLayout="column">
+      <select id="subjectId" formControlName="subjectId">
+        <option value="" disabled selected>Sélectionner un thème</option>
+        <option *ngFor="let option of (subject$ | async)" [value]="option.id">{{ option.name }}</option>
+      </select>
+    </div>
+    <div class="form-field" fxLayout="column">
+      <input id="title" type="text" formControlName="title" placeholder="Titre de l'article">
+    </div>
+    <div class="form-field" fxLayout="column">
+      <textarea id="content" formControlName="content" class="custom_text-area" placeholder="Contenu de l'article"></textarea>
+    </div>
+    <button type="submit" [disabled]="form.invalid">Créer</button>
+    <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>
+  </form>
+</div>
+

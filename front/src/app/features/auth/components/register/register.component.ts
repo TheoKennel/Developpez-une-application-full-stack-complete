@@ -4,7 +4,6 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {RegisterRequest} from "../../interfaces/registerRequest.interface";
 import {HttpErrorResponse} from "@angular/common/http";
-import {NavigationService} from "../../../../common/navigation.service";
 
 @Component({
   selector: 'app-register',
@@ -27,9 +26,8 @@ export class RegisterComponent  {
 
   constructor(private authService: AuthService,
               private fb: FormBuilder,
-              private router: Router,
-              private navigationService : NavigationService
-  ) { }
+              private router: Router
+              ) { }
 
   public submit() {
     const registerRequest = this.form.value as RegisterRequest;
@@ -44,7 +42,7 @@ export class RegisterComponent  {
     );
   }
 
-  public navigateHome() {
-    this.navigationService.navigateToHome()
+  public back() {
+    window.history.back()
   }
 }

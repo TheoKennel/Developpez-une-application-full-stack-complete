@@ -6,12 +6,13 @@ import {FormGroup} from "@angular/forms";
   templateUrl: './form.component.html',
 })
 export class FormComponent {
+  @Input() customClass!: string;
   @Input() title!: string;
   @Input() buttonText!: string;
   @Input() form!: FormGroup;
   @Input() errorMessage!: string | null;
-  @Input() fields!: { name: string, label: string, type: string, placeholder: string }[];
+  @Input() fields!: { name: string, label: string, type: string, placeholder: string; options?: any[] }[];
   @Output() submitForm = new EventEmitter<any>();
-  @Output() navigateHome = new EventEmitter<void>();
+  @Output() navigate = new EventEmitter<void>();
 }
 
