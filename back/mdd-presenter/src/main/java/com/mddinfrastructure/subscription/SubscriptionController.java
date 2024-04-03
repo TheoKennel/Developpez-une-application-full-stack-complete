@@ -4,6 +4,7 @@ import com.mddcore.usecases.UseCaseExecutor;
 import com.mddcore.usecases.subscription.AddSubscriptionUseCase;
 import com.mddcore.usecases.subscription.RemoveSubscriptionUseCase;
 import com.mddinfrastructure.response.ApiResponse;
+import com.mddinfrastructure.response.SubscriptionResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -31,10 +32,10 @@ public class SubscriptionController implements SubscriptionResource {
      * @return A CompletableFuture containing an ApiResponse indicating the success or failure of the operation.
      */
     @Override
-    public CompletableFuture<ApiResponse> saveSubscription(@PathVariable Long userId, @PathVariable Long subjectId) {
+    public CompletableFuture<SubscriptionResponse> saveSubscription(@PathVariable Long userId, @PathVariable Long subjectId) {
         return useCaseExecutor.execute(addSubscriptionUseCase,
                 new AddSubscriptionUseCase.InputValues(userId, subjectId),
-                outputValues -> new ApiResponse(outputValues.isAdded(), "Add subscription successfully"));
+                outputValues ->  SubscriptionResponse.from(outputValues.subscription()));
     }
 
     /**

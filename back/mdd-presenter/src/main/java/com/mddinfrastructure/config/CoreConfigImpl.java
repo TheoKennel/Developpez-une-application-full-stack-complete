@@ -34,8 +34,8 @@ public class CoreConfigImpl {
     }
 
     @Bean
-    public UpdateUserUseCase updateUserUseCase(IUserRepository userRepository, IPasswordEncodeFinal passwordEncodeFinal) {
-        return new UpdateUserUseCase(userRepository, passwordEncodeFinal);
+    public UpdateUserUseCase updateUserUseCase(IUserRepository userRepository) {
+        return new UpdateUserUseCase(userRepository);
     }
 
     // SUBSCRIPTION

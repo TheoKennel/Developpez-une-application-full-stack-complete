@@ -26,9 +26,11 @@ public class SubscriptionRepoImpl implements ISubscriptionRepository {
      * @param subscription the subscription to save
      */
     @Override
-    public void save(Subscription subscription) {
+    public Subscription save(Subscription subscription) {
         SubscriptionEntity subscriptionEntity = mapper.toEntity(subscription);
-        repo.save(subscriptionEntity);
+        subscriptionEntity =  repo.save(subscriptionEntity);
+        return mapper.toDomain(subscriptionEntity);
+
     }
 
     /**

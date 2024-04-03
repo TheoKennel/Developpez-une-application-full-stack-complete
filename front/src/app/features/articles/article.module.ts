@@ -12,12 +12,14 @@ import {ArticleRoutingModule} from "./article-routing.module";
 import {AuthModule} from "../auth/auth.module";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {ReactiveFormsModule} from "@angular/forms";
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 
 @NgModule({
   declarations: [
     ListComponent,
     CreateComponent,
     DetailsComponent,
+    SubscriptionsComponent,
   ],
   imports: [
     MatCardModule,
@@ -35,6 +37,9 @@ import {ReactiveFormsModule} from "@angular/forms";
     NgIf,
     ReactiveFormsModule
   ],
+  exports: [
+    SubscriptionsComponent
+  ]
 })
 
 export class ArticleModule {}

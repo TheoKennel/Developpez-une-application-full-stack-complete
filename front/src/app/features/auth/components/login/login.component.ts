@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
 import {LoginRequest} from "../../interfaces/loginRequest.interface";
 import {LocalStorageService} from "../../../../storage/local-storage.service";
+import {UserInformation} from "../../interfaces/userInformation.interface";
 
 @Component({
   selector: 'app-login',
@@ -33,10 +34,7 @@ export class LoginComponent {
           console.log('Password : ', loginRequest.password)
     this.authService.login(loginRequest).subscribe({
         next: (userInformation) =>  {
-          this.localStorage.setItem("id", userInformation.id.toString())
-          this.localStorage.setItem("pictureUrl", userInformation.picture)
-          this.localStorage.setItem("isLogged", "true")
-          this.localStorage.setItem("userName", userInformation.userName)
+          this.setLocalStorage(userInformation)
           this.router.navigate(['/article'])
         },
         error: (error: HttpErrorResponse) => {
@@ -48,5 +46,13 @@ export class LoginComponent {
 
   public back() {
     window.history.back()
+  }
+
+  private setLocalStorage(userInformation: UserInformation) {
+    this.localStorage.setItem("id", userInformation.id.toString())
+    this.localStorage.setItem("pictureUrl", userInformation.picture)
+    this.localStorage.setItem("isLogged", "true")
+    this.localStorage.setItem("userName", userInformation.userName)
+    this.localStorage.setArray("subscriptions", userInformation.subscriptions)
   }
 }

@@ -1,5 +1,6 @@
 package com.mddinfrastructure.security.userdetails;
 
+import com.mddcore.domain.models.Subscription;
 import com.mddcore.domain.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @AllArgsConstructor
 @Data
@@ -26,6 +28,9 @@ public class CustomUserDetails implements UserDetails {
         return Collections.emptyList();
     }
 
+    public List<Subscription> getSubscriptions() {
+        return user.getSubscriptionList();
+    }
     public String getPictureUrl() {
         return user.getPicture();
     }

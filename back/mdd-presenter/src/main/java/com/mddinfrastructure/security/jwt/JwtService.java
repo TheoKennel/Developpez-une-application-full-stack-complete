@@ -4,6 +4,7 @@ import com.mddcore.domain.models.RefreshToken;
 import com.mddcore.usecases.UseCaseExecutor;
 import com.mddcore.usecases.user.token.*;
 import com.mddinfrastructure.response.AuthResponse;
+import com.mddinfrastructure.response.SubscriptionResponse;
 import com.mddinfrastructure.security.userdetails.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -53,11 +55,12 @@ public class JwtService {
                 outputValues -> {
                     ResponseCookie cookie = cookieJwt.generateJwtCookie(userDetails);
                     ResponseCookie jwtRefresh = cookieJwt.generateRefreshJwtCookie(outputValues.token());
+                    List<SubscriptionResponse> subscriptionResponses = SubscriptionResponse.from(userDetails.getSubscriptions());
 
                     return ResponseEntity.ok()
                             .header(HttpHeaders.SET_COOKIE, cookie.toString())
                             .header(HttpHeaders.SET_COOKIE, jwtRefresh.toString())
-                            .body(new AuthResponse(userDetails.getId(), userDetails.getPictureUrl(), userDetails.getUserName()));
+                            .body(new AuthResponse(userDetails.getId(), userDetails.getPictureUrl(), userDetails.getUserName(), subscriptionResponses));
                 }
         );
     }

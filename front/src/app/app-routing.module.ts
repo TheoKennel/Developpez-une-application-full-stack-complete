@@ -4,7 +4,7 @@ import {AuthGuard} from "./guards/auth.guard";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {MeComponent} from "./components/me/me.component";
 import {HomeComponent} from "./features/auth/components/home/home.component";
-import {SubjectsComponent} from "./features/subjects/subjects.component";
+import {SubjectsComponent} from "./features/articles/components/subjects/subjects.component";
 
 
 const routes: Routes = [

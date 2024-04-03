@@ -3,9 +3,7 @@
   <div class="list-details" fxLayout="column">
     <h1>{{ subject.name }}</h1>
     <p>{{ subject.description }}</p>
-    <div class ="subscription_button">
-    <button>S'abonner</button>
-    </div>
+    <app-subscriptions [subjectId]="subject.id"></app-subscriptions>
   </div>
 </div>
 </div>

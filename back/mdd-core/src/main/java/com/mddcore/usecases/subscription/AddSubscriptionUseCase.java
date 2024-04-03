@@ -20,7 +20,6 @@ public class AddSubscriptionUseCase extends UseCase<AddSubscriptionUseCase.Input
     /**
      * Adds a subscription for a user to a subject. Validates that the user and subject exist
      * and checks that the user is not already subscribed to the subject before adding the subscription.
-     * @param input the input values containing the user and subject IDs for the subscription
      * @return the output values indicating whether the subscription was added successfully
      * @throws IllegalArgumentException if the user or subject does not exist
      * @throws IllegalStateException if the user is already subscribed to the subject
@@ -50,9 +49,9 @@ public class AddSubscriptionUseCase extends UseCase<AddSubscriptionUseCase.Input
                     input.userId()
             );
 
-            repository.save(subscription);
+            Subscription subscriptionAdded = repository.save(subscription);
 
-            return new OutputValues(true);
+            return new OutputValues(true, subscriptionAdded);
     }
 
     private Boolean isAlreadySubscribed(User user, Long subjectId) {
@@ -61,5 +60,5 @@ public class AddSubscriptionUseCase extends UseCase<AddSubscriptionUseCase.Input
 
     public record InputValues(Long userId, Long subjectId) implements UseCase.InputValues {}
 
-    public record OutputValues(Boolean isAdded) implements UseCase.OutputValues {}
+    public record OutputValues(Boolean isAdded, Subscription subscription) implements UseCase.OutputValues {}
 }

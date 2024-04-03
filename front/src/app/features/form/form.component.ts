@@ -6,7 +6,6 @@ import {FormGroup} from "@angular/forms";
   templateUrl: './form.component.html',
 })
 export class FormComponent {
-  @Input() customClass!: string;
   @Input() title!: string;
   @Input() buttonText!: string;
   @Input() form!: FormGroup;

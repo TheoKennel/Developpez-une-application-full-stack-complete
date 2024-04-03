@@ -3,18 +3,15 @@ package com.mddcore.usecases.user;
 import com.mddcore.domain.models.User;
 import com.mddcore.domain.repository.IUserRepository;
 import com.mddcore.usecases.UseCase;
-import com.mddcore.usecases.auth.IPasswordEncodeFinal;
 
 /**
  * Use case for updating user information.
  */
 public class UpdateUserUseCase extends UseCase<UpdateUserUseCase.InputValues, UpdateUserUseCase.OutputValues> {
     private final IUserRepository userRepository;
-    private final IPasswordEncodeFinal passwordEncodeFinal;
 
-    public UpdateUserUseCase(IUserRepository userRepository, IPasswordEncodeFinal passwordEncodeFinal) {
+    public UpdateUserUseCase(IUserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncodeFinal = passwordEncodeFinal;
     }
 
    /**
@@ -25,6 +22,7 @@ public class UpdateUserUseCase extends UseCase<UpdateUserUseCase.InputValues, Up
      */
     @Override
     public OutputValues execute(InputValues input) {
+        existByEmail(input.user);
         return userRepository.findById(input.id()).map(user -> {
             if (!user.getId().equals(input.authId)) {
                 throw new IllegalArgumentException("Authenticate user don't match user to update");
@@ -43,9 +41,13 @@ public class UpdateUserUseCase extends UseCase<UpdateUserUseCase.InputValues, Up
             user.setUsername(input.user.getUsername());
         }
 
-        user.setPassword(passwordEncodeFinal.encodePass(input.user.getPassword()));
-
         return new OutputValues(userRepository.save(user));
+    }
+
+    private void existByEmail(User user) {
+        if (userRepository.existByEmail(user.getEmail())) {
+            throw new IllegalArgumentException("Invalid Email");
+        }
     }
 
     public record InputValues(Long id, User user, Long authId) implements UseCase.InputValues {

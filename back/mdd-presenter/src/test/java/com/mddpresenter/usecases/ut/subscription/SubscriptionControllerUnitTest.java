@@ -4,6 +4,7 @@ import com.mddcore.usecases.UseCaseExecutor;
 import com.mddcore.usecases.subscription.AddSubscriptionUseCase;
 import com.mddcore.usecases.subscription.RemoveSubscriptionUseCase;
 import com.mddinfrastructure.response.ApiResponse;
+import com.mddinfrastructure.response.SubscriptionResponse;
 import com.mddinfrastructure.subscription.SubscriptionController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -80,8 +81,8 @@ public class SubscriptionControllerUnitTest {
                 .when(useCaseExecutor)
                 .execute(eq(addSubscriptionUseCase), any(AddSubscriptionUseCase.InputValues.class), any());
 
-        CompletableFuture<ApiResponse> result = subscriptionController.saveSubscription(userId, subjectId);
-        ApiResponse response = result.join();
+        CompletableFuture<SubscriptionResponse> result = subscriptionController.saveSubscription(userId, subjectId);
+        SubscriptionResponse response = result.join();
 
         assertThat(response).isEqualTo(expectedResponse);
     }
@@ -94,8 +95,8 @@ public class SubscriptionControllerUnitTest {
                 .when(useCaseExecutor)
                 .execute(eq(addSubscriptionUseCase), any(AddSubscriptionUseCase.InputValues.class), any());
 
-        CompletableFuture<ApiResponse> result = subscriptionController.saveSubscription(userId, subjectId);
-        ApiResponse response = result.join();
+        CompletableFuture<SubscriptionResponse> result = subscriptionController.saveSubscription(userId, subjectId);
+        SubscriptionResponse response = result.join();
 
         assertThat(response).isEqualTo(expectedResponse);
     }
