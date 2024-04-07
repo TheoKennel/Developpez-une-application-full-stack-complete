@@ -68,7 +68,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private refreshToken(): Observable<any> {
-    console.log("Refresh token")
     return this.http.post<any>(`http://localhost:3001/api/auth/refresh-token`, {}, {withCredentials: true})
   }
 

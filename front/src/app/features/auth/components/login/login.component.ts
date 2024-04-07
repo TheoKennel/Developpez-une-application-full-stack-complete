@@ -31,7 +31,6 @@ export class LoginComponent {
 
   public submit() {
     const loginRequest = this.form.value as LoginRequest;
-          console.log('Password : ', loginRequest.password)
     this.authService.login(loginRequest).subscribe({
         next: (userInformation) =>  {
           this.setLocalStorage(userInformation)

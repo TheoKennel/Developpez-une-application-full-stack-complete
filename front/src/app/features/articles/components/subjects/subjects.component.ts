@@ -1,8 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {Observable} from "rxjs";
 import {Subject} from "../interface/subject.interface";
 import {SubjectApiService} from "../services/subject-api.service";
-import {SubscriptionsComponent} from "../../subscriptions/subscriptions.component";
 
 @Component({
   selector: 'app-subjects',
@@ -10,7 +9,6 @@ import {SubscriptionsComponent} from "../../subscriptions/subscriptions.componen
   styleUrls: ['./subjects.component.scss']
 })
 export class SubjectsComponent{
-
 
   public subject$ : Observable<Subject[]> = this.listSubject();
   constructor(

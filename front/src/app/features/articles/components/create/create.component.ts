@@ -56,7 +56,6 @@ export class CreateComponent implements OnInit {
     this.articleService.create(articleRequest).subscribe({
       next: (_) => {
         console.log('user_id', this.localStorage.getItem('userId')!!)
-        this.exitPage('Article created !')
       },
       error: (error : HttpErrorResponse) => {
         this.errorMessage = error.message;

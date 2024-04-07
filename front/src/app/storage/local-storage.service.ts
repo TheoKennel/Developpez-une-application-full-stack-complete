@@ -13,11 +13,9 @@ export class LocalStorageService {
   setItem(key: string, value: string) : void {
     localStorage.setItem(key, value)
     if (key === 'subscriptions') {
-      console.log(this.subscriptionsSubject.value)
       this.subscriptionsSubject.next(this.getArray('subscriptions'))
     }
   }
-
 
   setArray(key: string, value: any[]) : void {
     localStorage.setItem(key, JSON.stringify(value))
