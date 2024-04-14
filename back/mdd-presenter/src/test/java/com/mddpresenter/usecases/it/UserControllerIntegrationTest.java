@@ -3,6 +3,7 @@ package com.mddpresenter.usecases.it;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mddinfrastructure.MddApiApplication;
 import com.mddinfrastructure.request.UserSettingRequest;
+import com.mddinfrastructure.request.UserUpdateRequest;
 import com.mddinfrastructure.security.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,11 +74,11 @@ public class UserControllerIntegrationTest extends BaseControllerTest {
     @WithMockUser
     public void UpdateUser_ShouldUpdateUser_WithValidSettings() throws Exception {
         when(jwtTokenProvider.getAuthenticateUser()).thenReturn(2L);
-        UserSettingRequest userSettingRequest = new UserSettingRequest("updatedEmail@example.com", "NewPassword123", "UpdatedUsername");
-        String userSettingRequestJson = new ObjectMapper().writeValueAsString(userSettingRequest);
+        UserUpdateRequest userUpdateRequest = new UserUpdateRequest("UpdatedUsername","updatedEmail@example.com");
+        String userSettingRequestJson = new ObjectMapper().writeValueAsString(userUpdateRequest);
 
         RequestBuilder requestBuilder = asyncPutRequestWithCookies("/api/user/2", userSettingRequestJson, cookieName, jwtRefreshCookie);
-        mockMvc.perform(requestBuilder).andExpect(status().isOk()).andExpect(jsonPath("$.email").value(userSettingRequest.email())).andExpect(jsonPath("$.username").value(userSettingRequest.username()));
+        mockMvc.perform(requestBuilder).andExpect(status().isOk()).andExpect(jsonPath("$.email").value(userUpdateRequest.email())).andExpect(jsonPath("$.username").value(userUpdateRequest.username()));
     }
 
     @Test

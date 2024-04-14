@@ -1,23 +1,42 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { ListComponent } from './list.component';
+import { ArticleApiService } from "../services/article-api.service";
+import { of } from 'rxjs';
+import { expect } from '@jest/globals';
+
 
 describe('ListComponent', () => {
   let component: ListComponent;
-  let fixture: ComponentFixture<ListComponent>;
+
+  const mockArticleApiService = {
+    all: jest.fn().mockReturnValue(of([
+      { id: 1, date: new Date('2024-04-11') },
+      { id: 2, date: new Date('2024-04-12') }
+    ]))
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListComponent ]
-    })
-    .compileComponents();
+      declarations: [ListComponent],
+      providers: [
+        { provide: ArticleApiService, useValue: mockArticleApiService }
+      ]
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(ListComponent);
+    const fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should fetch articles on init', () => {
+    expect(mockArticleApiService.all).toHaveBeenCalled();
+  });
+
+  it('should sort articles by date', () => {
+    component.sortByDate();
+    component.articles$.subscribe(articles => {
+      expect(articles[0].id).toBe(2);
+      expect(articles[1].id).toBe(1);
+    });
   });
 });

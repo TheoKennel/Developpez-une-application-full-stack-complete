@@ -42,8 +42,7 @@ public class SubscriptionControllerIntegrationTest extends BaseControllerTest {
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.message").value("Add subscription successfully"));
+                .andExpect(jsonPath("$.id").value(3L));
     }
 
     @Test

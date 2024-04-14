@@ -1,6 +1,6 @@
 package com.mddinfrastructure.user;
 
-import com.mddinfrastructure.request.UserSettingRequest;
+import com.mddinfrastructure.request.UserUpdateRequest;
 import com.mddinfrastructure.response.ApiResponse;
 import com.mddinfrastructure.response.UserResponse;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public interface UserResource {
     CompletableFuture<ApiResponse> deleteUserById(@PathVariable Long id);
 
     @PutMapping("/{id}")
-    CompletableFuture<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserSettingRequest userSettingRequest);
+    CompletableFuture<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest userUpdateRequest);
 
     @GetMapping()
     CompletableFuture<ResponseEntity<?>> getUserAuth();

@@ -11,7 +11,7 @@ const routes: Routes = [
   { title: 'Home', path: '', component: HomeComponent },
   { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
   {
-    path: 'article',
+    path: 'article', canActivate: [AuthGuard],
     loadChildren: () => import('./features/articles/article.module').then(m => m.ArticleModule)
   },
   {

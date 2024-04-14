@@ -6,6 +6,6 @@ export interface Article {
   authorName: string;
   SubjectName: string;
   content: string;
-  comments: Comment[];
+  commentResponses: Comment[];
   date: Date;
 }

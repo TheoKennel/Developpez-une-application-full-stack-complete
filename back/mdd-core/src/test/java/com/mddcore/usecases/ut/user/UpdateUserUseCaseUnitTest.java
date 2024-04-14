@@ -31,18 +31,14 @@ public class UpdateUserUseCaseUnitTest {
         user.setEmail("test@unit.com");
         user.setUsername("theo");
         user.setId(1L);
-        user.setPassword("1567687354sdflsdhfQd&3");
-        user.setSubscriptionList(null);
         UpdateUserUseCase.InputValues inputValues = new UpdateUserUseCase.InputValues(1L, user, 1L);
 
-        doReturn("1567687354sdflsdhfQd&3").when(passwordEncoder).encodePass(user.getPassword());
         doReturn(Optional.of(user)).when(repository).findById(1L);
         doReturn(user).when(repository).save(user);
 
         UpdateUserUseCase.OutputValues outputValues = useCase.execute(inputValues);
 
         assertThat(outputValues.user().getEmail()).isEqualTo(user.getEmail());
-        assertThat(outputValues.user().getPassword()).isEqualTo("1567687354sdflsdhfQd&3");
         verify(repository, times(1)).save(user);
         verify(repository, times(1)).findById(1L);
     }

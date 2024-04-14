@@ -4,6 +4,7 @@ import com.mddcore.usecases.UseCaseExecutor;
 import com.mddcore.usecases.subscription.AddSubscriptionUseCase;
 import com.mddcore.usecases.subscription.RemoveSubscriptionUseCase;
 import com.mddinfrastructure.response.ApiResponse;
+import com.mddinfrastructure.response.SubjectResponse;
 import com.mddinfrastructure.response.SubscriptionResponse;
 import com.mddinfrastructure.subscription.SubscriptionController;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 public class SubscriptionControllerUnitTest {
@@ -75,29 +77,16 @@ public class SubscriptionControllerUnitTest {
 
     @Test
     public void saveSubscription_ShouldReturnSuccessResponse() {
-        ApiResponse expectedResponse = new ApiResponse(true, "Add subscription successfully");
+        SubjectResponse subjectResponse = mock(SubjectResponse.class);
+        SubscriptionResponse subscriptionResponse = new SubscriptionResponse(2L, subjectResponse);
 
-        doReturn(CompletableFuture.completedFuture(expectedResponse))
+        doReturn(CompletableFuture.completedFuture(subscriptionResponse))
                 .when(useCaseExecutor)
                 .execute(eq(addSubscriptionUseCase), any(AddSubscriptionUseCase.InputValues.class), any());
 
         CompletableFuture<SubscriptionResponse> result = subscriptionController.saveSubscription(userId, subjectId);
         SubscriptionResponse response = result.join();
 
-        assertThat(response).isEqualTo(expectedResponse);
-    }
-
-    @Test
-    public void saveSubscription_ShouldReturnErrorResponse() {
-        ApiResponse expectedResponse = new ApiResponse(false, "Error occurred while adding subscription");
-
-        doReturn(CompletableFuture.completedFuture(expectedResponse))
-                .when(useCaseExecutor)
-                .execute(eq(addSubscriptionUseCase), any(AddSubscriptionUseCase.InputValues.class), any());
-
-        CompletableFuture<SubscriptionResponse> result = subscriptionController.saveSubscription(userId, subjectId);
-        SubscriptionResponse response = result.join();
-
-        assertThat(response).isEqualTo(expectedResponse);
+        assertThat(response).isEqualTo(subscriptionResponse);
     }
 }

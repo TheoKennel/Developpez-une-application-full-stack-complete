@@ -31,11 +31,7 @@ export class MeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.user$ = this.fetchUser();
     this.subscribeToUser();
-    console.log(this.localStorage.subscriptionsSubject)
-    console.log(this.localStorage.subscriptionsSubject.subscribe())
-    console.log(this.localStorage.getArray("subscriptions"))
     this.subscriptions = this.localStorage.subscriptionsSubject
-    console.log('subscriptions', this.subscriptions)
   };
 
   ngOnDestroy() {
@@ -47,6 +43,7 @@ export class MeComponent implements OnInit, OnDestroy {
     const user = this.form?.value as User;
     this.userService.updateUser(user, this.userId!!.toString()).subscribe({
       next: (user) => {
+        this.errorMessage = ""
         this.setLocalStorage(user);
         this.updateSnackBack('User updated !');
       }, error: (error) => {

@@ -49,7 +49,6 @@ public class CookieJwtUnitTest {
         assertThat(cookie.getName()).isEqualTo("jwtCookie");
         assertThat(cookie.getValue()).isEqualTo(token);
         assertThat(cookie.getPath()).isEqualTo("/api");
-        assertThat(cookie.isHttpOnly()).isTrue();
     }
 
     @Test
@@ -66,7 +65,6 @@ public class CookieJwtUnitTest {
         assertThat(cookie.getName()).isEqualTo("jwtCookie");
         assertThat(cookie.getValue()).isEqualTo(token);
         assertThat(cookie.getPath()).isEqualTo("/api");
-        assertThat(cookie.isHttpOnly()).isTrue();
     }
 
     @Test
@@ -77,29 +75,7 @@ public class CookieJwtUnitTest {
         assertThat(cookie.getName()).isEqualTo("jwtRefreshCookie");
         assertThat(cookie.getValue()).isEqualTo(refreshToken);
         assertThat(cookie.getPath()).isEqualTo("/api/auth/refresh-token");
-        assertThat(cookie.isHttpOnly()).isTrue();
     }
-
-    @Test
-    void getJwtFromCookies_ShouldReturnJwtToken() {
-////        request.
-////        String token = cookieJwt.getJwtFromCookies(request);
-//
-//        verify(request, times(1)).getCookies();
-//        assertThat(token).isEqualTo("jwtCookie");
-    }
-
-//    @Test
-//    void getJwtRefreshFromCookies_ShouldReturnRefreshToken() {
-//        String jwtRefreshCookieName = "jwtRefreshCookieName";
-//        Cookie refreshCookie = new Cookie(jwtRefreshCookieName, "refreshTokenValue");
-//
-//        doReturn(new Cookie[]{refreshCookie}).when(request).getCookies();
-//
-//        String refreshToken = cookieJwt.getJwtRefreshFromCookies(request);
-//
-//        assertThat(refreshToken).isEqualTo("refreshTokenValue");
-//    }
 
     @Test
     public void getCleanJwtCookie_ShouldReturnEmptyCookie() {

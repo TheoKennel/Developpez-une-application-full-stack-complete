@@ -5,7 +5,7 @@ import com.mddcore.usecases.UseCaseExecutor;
 import com.mddcore.usecases.user.DeleteUserUseCase;
 import com.mddcore.usecases.user.GetUserUseCase;
 import com.mddcore.usecases.user.UpdateUserUseCase;
-import com.mddinfrastructure.request.UserSettingRequest;
+import com.mddinfrastructure.request.UserUpdateRequest;
 import com.mddinfrastructure.response.ApiResponse;
 import com.mddinfrastructure.response.SubscriptionResponse;
 import com.mddinfrastructure.response.UserResponse;
@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -78,8 +77,7 @@ public class UserControllerUnitTest {
     @Test
     public void updateUser_ShouldReturnExpectedUserResponse() {
         Long id = 1L;
-        UserSettingRequest userSettingRequest = new UserSettingRequest("email@email.com",
-                "123456&23'éTh", "theo");
+        UserUpdateRequest userUpdateRequest = new UserUpdateRequest("theo", "email@email.com");
 
         User user = new User();
         UserResponse expectedResponse = UserResponse.from(user);
@@ -88,7 +86,7 @@ public class UserControllerUnitTest {
                 .when(useCaseExecutor)
                 .execute(eq(updateUserUseCase), any(UpdateUserUseCase.InputValues.class), any());
 
-        CompletableFuture<UserResponse> result = userController.updateUser(id, userSettingRequest);
+        CompletableFuture<UserResponse> result = userController.updateUser(id, userUpdateRequest);
         UserResponse response = result.join();
 
         assertThat(response).isEqualTo(expectedResponse);

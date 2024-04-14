@@ -5,9 +5,9 @@ import com.mddcore.usecases.UseCaseExecutor;
 import com.mddcore.usecases.user.token.CreateRefreshTokenUseCase;
 import com.mddcore.usecases.user.token.DeleteRefreshTokenUseCase;
 import com.mddinfrastructure.response.AuthResponse;
-import com.mddinfrastructure.security.jwt.CookieJwt;
+import com.mddinfrastructure.response.SubjectResponse;
+import com.mddinfrastructure.response.SubscriptionResponse;
 import com.mddinfrastructure.security.jwt.JwtService;
-import com.mddinfrastructure.security.jwt.JwtTokenProvider;
 import com.mddinfrastructure.security.userdetails.CustomUserDetails;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +20,8 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -30,10 +32,6 @@ import static org.mockito.Mockito.mock;
 public class JwtServiceUnitTest {
     @InjectMocks
     private JwtService jwtService;
-    @Mock
-    private CookieJwt cookieJwt;
-    @Mock
-    private JwtTokenProvider jwtTokenProvider;
     @Mock
     private UseCaseExecutor useCaseExecutor;
 
@@ -46,8 +44,14 @@ public class JwtServiceUnitTest {
         Long userId = 1L;
         String pictureUrl = "http://example.test/jpg";
         String userName = "username";
+        List<SubscriptionResponse> subscriptionResponses = new ArrayList<>();
+        SubscriptionResponse subscriptionResponse = new SubscriptionResponse(
+                1L,
+                mock(SubjectResponse.class)
+        );
+        subscriptionResponses.add(subscriptionResponse);
 
-        AuthResponse expectedBody = new AuthResponse(userId, pictureUrl, userName);
+        AuthResponse expectedBody = new AuthResponse(userId, pictureUrl, userName, subscriptionResponses);
         ResponseEntity<AuthResponse> expectedResponse = ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                 .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())

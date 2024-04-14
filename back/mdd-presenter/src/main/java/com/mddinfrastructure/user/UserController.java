@@ -5,7 +5,7 @@ import com.mddcore.usecases.user.DeleteUserUseCase;
 import com.mddcore.usecases.user.GetUserUseCase;
 import com.mddcore.usecases.user.UpdateUserUseCase;
 import com.mddinfrastructure.mapper.UserUpdateMapper;
-import com.mddinfrastructure.request.UserSettingRequest;
+import com.mddinfrastructure.request.UserUpdateRequest;
 import com.mddinfrastructure.response.ApiResponse;
 import com.mddinfrastructure.response.UserResponse;
 import com.mddinfrastructure.security.jwt.JwtTokenProvider;
@@ -68,15 +68,15 @@ public class  UserController implements UserResource {
      * Updates a user asynchronously.
      *
      * @param id                The ID of the user to update.
-     * @param userSettingRequest The UserSettingRequest containing the updated user details.
+     * @param userUpdateRequest The UserSettingRequest containing the updated user details.
      * @return A CompletableFuture containing the updated UserResponse.
      */
     @Override
-    public CompletableFuture<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserSettingRequest userSettingRequest) {
+    public CompletableFuture<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest userUpdateRequest) {
         Long authId = jwtTokenProvider.getAuthenticateUser();
         return useCaseExecutor.execute(
                 updateUserUseCase,
-                new UpdateUserUseCase.InputValues(id, UserUpdateMapper.INSTANCE.toDomain(userSettingRequest), authId),
+                new UpdateUserUseCase.InputValues(id, UserUpdateMapper.INSTANCE.toDomain(userUpdateRequest), authId),
                 outputValues -> UserResponse.from(outputValues.user()));
     }
 
