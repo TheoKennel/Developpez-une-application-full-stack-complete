@@ -1,12 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { LoginComponent } from './login.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {LoginComponent} from './login.component';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {LocalStorageService} from "../../../../storage/local-storage.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {of, throwError} from "rxjs";
-import { expect } from '@jest/globals';
+import {expect} from '@jest/globals';
 import {ReactiveFormsModule} from "@angular/forms";
+import {NO_ERRORS_SCHEMA} from "@angular/core";
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -27,13 +28,14 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
+      declarations: [LoginComponent],
       providers: [
-        { provide: AuthService, useValue: mockAuthService },
-        { provide: Router, useValue: mockRouter },
-        { provide: LocalStorageService, useValue: mockLocalStorage }
+        {provide: AuthService, useValue: mockAuthService},
+        {provide: Router, useValue: mockRouter},
+        {provide: LocalStorageService, useValue: mockLocalStorage}
       ],
-      imports: [ ReactiveFormsModule ]
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [ReactiveFormsModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
@@ -42,7 +44,7 @@ describe('LoginComponent', () => {
   });
 
   it('should navigate to articles on successful login', () => {
-    const userInformation = { id: 1, picture: 'url', userName: 'user', subscriptions: [] };
+    const userInformation = {id: 1, picture: 'url', userName: 'user', subscriptions: []};
     mockAuthService.login.mockReturnValue(of(userInformation));
     component.submit();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/article']);
@@ -55,7 +57,7 @@ describe('LoginComponent', () => {
   });
 
   it('should set local storage on successful login', () => {
-    const userInformation = { id: 1, picture: 'url', userName: 'user', subscriptions: [] };
+    const userInformation = {id: 1, picture: 'url', userName: 'user', subscriptions: []};
     mockAuthService.login.mockReturnValue(of(userInformation));
     component.submit();
     expect(mockLocalStorage.setItem).toHaveBeenCalledWith('id', '1');

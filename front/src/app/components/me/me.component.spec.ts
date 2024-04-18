@@ -1,10 +1,10 @@
-import { TestBed } from '@angular/core/testing';
-import { MeComponent } from './me.component';
-import { UserApiService } from "../../features/articles/components/services/user-api.service";
-import { LocalStorageService } from "../../storage/local-storage.service";
+import {TestBed} from '@angular/core/testing';
+import {MeComponent} from './me.component';
+import {UserApiService} from "../../features/articles/components/services/user-api.service";
+import {LocalStorageService} from "../../storage/local-storage.service";
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
-import { expect } from '@jest/globals';
+import {expect} from '@jest/globals';
 import {of, throwError} from 'rxjs';
 import {RouterTestingModule} from "@angular/router/testing";
 import {HttpClientModule} from "@angular/common/http";
@@ -35,6 +35,7 @@ describe('MeComponent', () => {
     clear: jest.fn()
   };
 
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -45,12 +46,19 @@ describe('MeComponent', () => {
       ],
       declarations: [MeComponent],
       providers: [
-        { provide: UserApiService, useValue: mockUserApiService },
-        { provide: LocalStorageService, useValue: mockLocalStorage },
-        { provide: FormBuilder, useValue: fb },
-        { provide: MatSnackBar, useValue: mockMatSnackBar },
+        {provide: UserApiService, useValue: mockUserApiService},
+        {provide: LocalStorageService, useValue: mockLocalStorage},
+        {provide: FormBuilder, useValue: fb},
+        {provide: MatSnackBar, useValue: mockMatSnackBar},
       ]
     }).compileComponents();
+
+    Object.defineProperty(window, 'location', {
+      value: {
+        reload: jest.fn()
+      },
+      writable: true
+    });
 
     const fixture = TestBed.createComponent(MeComponent);
     component = fixture.componentInstance;
@@ -87,7 +95,7 @@ describe('MeComponent', () => {
     expect(mockLocalStorage.setItem).toBeCalledWith('username', 'test');
     expect(mockLocalStorage.setItem).toBeCalledWith('email', 'test@test.com');
     expect(mockLocalStorage.setArray).toBeCalledWith('subscriptions', null);
-    expect(mockMatSnackBar.open).toBeCalledWith('User updated !', 'Close', { duration: 3000 });
+    expect(mockMatSnackBar.open).toBeCalledWith('User updated !', 'Close', {duration: 3000});
   });
 
   it('should handle error on submit', () => {

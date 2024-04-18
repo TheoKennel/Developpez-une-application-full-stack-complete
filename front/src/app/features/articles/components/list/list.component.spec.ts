@@ -3,6 +3,7 @@ import { ListComponent } from './list.component';
 import { ArticleApiService } from "../services/article-api.service";
 import { of } from 'rxjs';
 import { expect } from '@jest/globals';
+import {RouterTestingModule} from "@angular/router/testing";
 
 
 describe('ListComponent', () => {
@@ -18,6 +19,9 @@ describe('ListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ListComponent],
+      imports: [
+        RouterTestingModule
+      ],
       providers: [
         { provide: ArticleApiService, useValue: mockArticleApiService }
       ]

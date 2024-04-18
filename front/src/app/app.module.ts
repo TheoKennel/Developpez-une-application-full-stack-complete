@@ -11,7 +11,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./features/interceptors/auth-interceptor.service";
-import { SubjectsComponent } from './features/articles/components/subjects/subjects.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {FlexModule} from "@angular/flex-layout";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -20,7 +19,7 @@ import {ArticleModule} from "./features/articles/article.module";
 import {AuthModule} from "./features/auth/auth.module";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, MeComponent, NotFoundComponent, SubjectsComponent],
+  declarations: [AppComponent, HomeComponent, MeComponent, NotFoundComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

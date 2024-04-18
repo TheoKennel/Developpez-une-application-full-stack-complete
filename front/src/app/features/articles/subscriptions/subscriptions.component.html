@@ -1,8 +1,8 @@
-<div class ="subscription_button" *ngIf="!isSubscribed(subjectId); else unSubscribe">
+<div class="subscription_button" *ngIf="!isSubscribed(subjectId); else unSubscribe">
   <button (click)="addSubscription(subjectId)">S'abonner</button>
 </div>
 <ng-template #unSubscribe>
-<div class ="subscription_button">
-  <button (click)="removeSubscription(subjectId)">Se désabonner</button>
-</div>
+  <div class="subscription_button">
+    <button (click)="removeSubscription(subjectId)">Se désabonner</button>
+  </div>
 </ng-template>

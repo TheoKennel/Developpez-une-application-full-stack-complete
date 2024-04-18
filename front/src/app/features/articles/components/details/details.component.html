@@ -1,16 +1,16 @@
 <div class="details_page" fxLayout="row">
   <div class="details_left">
-  <mat-icon class="arrow_back-details-page" (click)="back()">arrow_backward</mat-icon>
+    <mat-icon class="arrow_back-details-page" (click)="back()">arrow_backward</mat-icon>
   </div>
   <div class="details_right">
     <div class="details_article">
-    <h1>{{this.article?.title }}</h1>
-    <div class="details_content-subtitle" fxLayout="row">
-      <p>{{this.article?.date | date : 'mediumDate'}}</p>
-      <p>{{this.article?.authorName}}</p>
-      <p>{{this.article?.SubjectName}}</p>
-  </div>
-    <p>{{this.article?.content}}</p>
+      <h1>{{this.article?.title }}</h1>
+      <div class="details_content-subtitle" fxLayout="row">
+        <p>{{this.article?.date | date : 'mediumDate'}}</p>
+        <p>{{this.article?.authorName}}</p>
+        <p>{{this.article?.SubjectName}}</p>
+      </div>
+      <p>{{this.article?.content}}</p>
     </div>
     <hr>
     <div class="details_comment">
@@ -24,10 +24,12 @@
     </div>
     <div class="post-comment" fxLayout="row" fxLayoutAlign="center center">
       <form [formGroup]="form" class="form-container" (ngSubmit)="postComment()">
-      <textarea formControlName="content"></textarea>
+        <textarea formControlName="content"></textarea>
       </form>
-      <i class="fa-regular fa-paper-plane fa-3x" style="color: #7763C5; margin-left: 25px; cursor: pointer" (click)="postComment()"></i>
+      <i class="fa-regular fa-paper-plane fa-3x icon_button" style="color: #7763C5; margin-left: 25px; cursor: pointer"
+         (click)="postComment()"></i>
     </div>
-    <span *ngIf="errorMessage" class="error-message" fxLayoutAlign="center center" style="margin-top: 20px">{{ errorMessage }}</span>
+    <span *ngIf="errorMessage" class="error-message" fxLayoutAlign="center center"
+          style="margin-top: 20px">{{ errorMessage }}</span>
   </div>
 </div>

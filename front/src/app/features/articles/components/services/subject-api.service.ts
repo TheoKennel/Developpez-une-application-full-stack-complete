@@ -6,13 +6,14 @@ import {Subject} from "../interface/subject.interface";
 @Injectable({providedIn: 'root'})
 export class SubjectApiService {
 
-      constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-    public allSubject() : Observable<Subject[]> {
-        return this.http.get<Subject[]>(`http://localhost:3001/api/subject`, { withCredentials: true });
-      }
+  public allSubject(): Observable<Subject[]> {
+    return this.http.get<Subject[]>(`http://localhost:3001/api/subject`, {withCredentials: true});
+  }
 
-    public subjectById(id : string) : Observable<Subject> {
-      return this.http.get<Subject>(`http://localhost:3001/api/subject/${id}`, { withCredentials: true });
-    }
+  public subjectById(id: string): Observable<Subject> {
+    return this.http.get<Subject>(`http://localhost:3001/api/subject/${id}`, {withCredentials: true});
+  }
 }

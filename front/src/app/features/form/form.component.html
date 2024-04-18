@@ -5,10 +5,10 @@
   </div>
   <form [formGroup]="form" fxLayout="column" class="form-container" (ngSubmit)="submitForm.emit(form.value)">
     <ng-container *ngFor="let field of fields">
-    <div class="form-field" fxLayout="column" *ngIf="field.type !== 'select'; else selectField">
-      <label [for]="field.name">{{ field.label }}</label>
-      <input [id]="field.name" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
-    </div>
+      <div class="form-field" fxLayout="column" *ngIf="field.type !== 'select'; else selectField">
+        <label [for]="field.name">{{ field.label }}</label>
+        <input [id]="field.name" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
+      </div>
       <ng-template #selectField>
         <div class="form-field" fxLayout="column">
           <label [for]="field.name">{{ field.label }}</label>

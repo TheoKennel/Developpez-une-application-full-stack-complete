@@ -4,16 +4,17 @@ import {CommentRequest} from "../interface/commentRequest.interface";
 import {Comment} from "../interface/comment.interface";
 import {Observable} from "rxjs";
 
-@Injectable({providedIn : "root"})
+@Injectable({providedIn: "root"})
 
 export class CommentApiService {
 
   constructor(
-    private http : HttpClient
-  ) {}
+    private http: HttpClient
+  ) {
+  }
 
-  public postComments(commentRequest : CommentRequest) {
-     return this.http.post<CommentRequest>(`http://localhost:3001/api/comment/create`, commentRequest, {withCredentials : true})
+  public postComments(commentRequest: CommentRequest) {
+    return this.http.post<CommentRequest>(`http://localhost:3001/api/comment/create`, commentRequest, {withCredentials: true})
   }
 }
 

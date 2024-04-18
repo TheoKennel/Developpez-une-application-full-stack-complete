@@ -1,30 +1,30 @@
 <div class="me_component" *ngIf="form">
-<div fxLayout="column" fxLayoutAlign="center center">
-<h2>Profil utilisateur</h2>
-<form [formGroup]="form" fxLayout="column" class="form-container" (ngSubmit)="submit()">
-    <div class="form-field" fxLayout="column">
-      <input formControlName="username">
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <h2>Profil utilisateur</h2>
+    <form [formGroup]="form" fxLayout="column" class="form-container" (ngSubmit)="submit()">
+      <div class="form-field" fxLayout="column">
+        <input formControlName="username">
+      </div>
+      <div class="form-field" fxLayout="column">
+        <input formControlName="email">
+      </div>
+      <button class="form_button" type="submit" [disabled]="form.invalid">Sauvegarder</button>
+      <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>
+      <h3 (click)="logout()">Se déconnecter</h3>
+      <hr/>
+    </form>
+    <h2>Abonnements</h2>
+    <div class="subscriptions_me" fxLayout="row wrap" fxLayoutAlign="center center">
+      <div *ngIf="!(subscriptions | async)?.length">
+        <h4> Aucun abonnement pour le moment, rendez vous dans la page des Thèmes pour vous abonnez</h4>
+      </div>
+      <div class="list" fxLayoutAlign="space-betwen" *ngFor="let subscription of ( subscriptions | async)">
+        <div class="list-details">
+          <h1>{{ subscription.subject.name }}</h1>
+          <p>{{ subscription.subject.description }}</p>
+          <app-subscriptions [subjectId]="subscription.subject.id"></app-subscriptions>
+        </div>
+      </div>
     </div>
-  <div class="form-field" fxLayout="column">
-    <input formControlName="email">
   </div>
-  <button type="submit" [disabled]="form.invalid">Sauvegarder</button>
-  <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>
-  <h3 (click)="logout()">Se déconnecter</h3>
-  <hr/>
-</form>
-  <h2>Abonnements</h2>
-  <div class="subscriptions_me" fxLayout="row wrap" fxLayoutAlign="center center">
-  <div *ngIf="!(subscriptions | async)?.length">
-    <h4> Aucun abonnement pour le moment, rendez vous dans la page des Thèmes pour vous abonnez</h4>
-  </div>
-<div class="list" fxLayoutAlign="space-betwen" *ngFor="let subscription of ( subscriptions | async)">
-  <div class="list-details">
-    <h1>{{ subscription.subject.name }}</h1>
-    <p>{{ subscription.subject.description }}</p>
-  <app-subscriptions [subjectId]="subscription.subject.id"></app-subscriptions>
-  </div>
-  </div>
-</div>
-</div>
 </div>

@@ -1,24 +1,25 @@
 <div class="list-main" fxLayout="column">
-    <div class="list-items" fxLayout="row wrap">
-  <div class="article_header" fxLayout="row">
-      <button  [routerLink]="['/article/create']">
+  <div class="list-items" fxLayout="row wrap">
+    <div class="article_header" fxLayout="row">
+      <button [routerLink]="['/article/create']">
         <span>Créer un article</span>
       </button>
-    <div class="article_header-filter" (click)="sortByDate()">
-      <span>Trier par</span>
-      <i class="fa-solid fa-arrow-down fa-xl"></i>
-    </div>
-  </div>
-      <div class="list" fxLayoutAlign="space-betwen" *ngFor="let article of (articles$ | async)" [routerLink]="['/article/detail', article.id]">
-        <div class="list-details">
-          <h1>{{ article.title }}</h1>
-          <div class="article_details-subtitles">
-            <span>{{ article.date | date: 'mediumDate' }}</span>
-            <span>{{ article.authorName }}</span>
-          </div>
-          <p>{{ article.content }}</p>
-        </div>
+      <div class="article_header-filter" (click)="sortByDate()">
+        <span>Trier par</span>
+        <i class="fa-solid fa-arrow-down fa-xl"></i>
       </div>
     </div>
+    <div class="list" fxLayoutAlign="space-betwen" *ngFor="let article of (articles$ | async)"
+         [routerLink]="['/article/detail', article.id]">
+      <div class="list-details">
+        <h1>{{ article.title }}</h1>
+        <div class="article_details-subtitles">
+          <span>{{ article.date | date: 'mediumDate' }}</span>
+          <span>{{ article.authorName }}</span>
+        </div>
+        <p>{{ article.content }}</p>
+      </div>
+    </div>
+  </div>
 </div>
 

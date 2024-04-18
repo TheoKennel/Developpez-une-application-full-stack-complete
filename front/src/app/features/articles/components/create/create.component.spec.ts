@@ -1,14 +1,16 @@
-import { TestBed} from '@angular/core/testing';
-import { CreateComponent } from './create.component';
-import { ArticleApiService } from "../services/article-api.service";
-import { ReactiveFormsModule } from "@angular/forms";
-import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
-import { of, throwError } from 'rxjs';
-import { expect } from '@jest/globals';
-import { RouterTestingModule } from "@angular/router/testing";
-import { HttpClientModule } from "@angular/common/http";
-import { SubjectApiService } from "../services/subject-api.service";
-import { LocalStorageService } from "../../../../storage/local-storage.service";
+import {TestBed} from '@angular/core/testing';
+import {CreateComponent} from './create.component';
+import {ArticleApiService} from "../services/article-api.service";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {of, throwError} from 'rxjs';
+import {expect} from '@jest/globals';
+import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientModule} from "@angular/common/http";
+import {SubjectApiService} from "../services/subject-api.service";
+import {LocalStorageService} from "../../../../storage/local-storage.service";
+import {MatIconModule} from "@angular/material/icon";
+import {Router} from "@angular/router";
 
 describe('CreateComponent', () => {
 
@@ -30,20 +32,26 @@ describe('CreateComponent', () => {
     getItem: jest.fn().mockReturnValue('1')
   };
 
+  const mockRoute = {
+    navigate: jest.fn()
+  }
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
         HttpClientModule,
         MatSnackBarModule,
+        MatIconModule,
         ReactiveFormsModule
       ],
       declarations: [CreateComponent],
       providers: [
-        { provide: ArticleApiService, useValue: mockArticleApiService },
-        { provide: SubjectApiService, useValue: mockSubjectApiService },
-        { provide: LocalStorageService, useValue: mockLocalStorage },
-        { provide: MatSnackBar, useValue: mockMatSnackBar },
+        {provide: ArticleApiService, useValue: mockArticleApiService},
+        {provide: SubjectApiService, useValue: mockSubjectApiService},
+        {provide: LocalStorageService, useValue: mockLocalStorage},
+        {provide: MatSnackBar, useValue: mockMatSnackBar},
+        {provide: Router, useValue: mockRoute}
       ]
     }).compileComponents();
 
@@ -62,6 +70,8 @@ describe('CreateComponent', () => {
     mockSubjectApiService.allSubject.mockReturnValueOnce(throwError(new Error('Error')));
     component.ngOnInit();
     expect(component.errorMessage).toEqual('Error');
+    expect(mockMatSnackBar.open).toBeCalledWith('Error', 'Close', {duration: 3000});
+    expect(mockRoute.navigate).toBeCalledWith(['/article']);
   });
 
   it('should create article on submit', () => {
@@ -69,13 +79,14 @@ describe('CreateComponent', () => {
       subject_id: "",
       user_id: "1",
       title: "",
-      content:""
+      content: ""
     };
 
     component.submitForm();
 
     expect(mockArticleApiService.create).toBeCalledWith(articleRequest);
-    expect(mockMatSnackBar.open).toBeCalledWith('Article created successfully', 'Close', { duration: 3000 });
+    expect(mockMatSnackBar.open).toBeCalledWith('Article created successfully', 'Close', {duration: 3000});
+    expect(mockRoute.navigate).toBeCalledWith(['/article']);
   });
 
   it('should navigate back on back', () => {
@@ -88,5 +99,7 @@ describe('CreateComponent', () => {
     mockArticleApiService.create.mockReturnValueOnce(throwError(new Error('Error')));
     component.submitForm();
     expect(component.errorMessage).toEqual('Error');
+    expect(mockMatSnackBar.open).toBeCalledWith('Error', 'Close', {duration: 3000});
+    expect(mockRoute.navigate).toBeCalledWith(['/article']);
   });
 });

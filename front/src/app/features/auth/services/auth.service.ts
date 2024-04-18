@@ -8,16 +8,16 @@ import {UserInformation} from "../interfaces/userInformation.interface";
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
-  public register(registerRequest: RegisterRequest) : Observable<LoginRequest> {
+  public register(registerRequest: RegisterRequest): Observable<LoginRequest> {
     return this.httpClient.post<LoginRequest>(`http://localhost:3001/api/auth/register`, registerRequest)
   }
 
   public login(loginRequest: LoginRequest): Observable<UserInformation> {
-    return this.httpClient.post<UserInformation>(`http://localhost:3001/api/auth/login`, loginRequest, { withCredentials: true })
+    return this.httpClient.post<UserInformation>(`http://localhost:3001/api/auth/login`, loginRequest, {withCredentials: true})
   }
 }

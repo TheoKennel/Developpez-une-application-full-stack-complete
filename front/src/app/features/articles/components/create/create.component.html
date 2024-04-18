@@ -14,7 +14,8 @@
       <input id="title" type="text" formControlName="title" placeholder="Titre de l'article">
     </div>
     <div class="form-field" fxLayout="column">
-      <textarea id="content" formControlName="content" class="custom_text-area" placeholder="Contenu de l'article"></textarea>
+      <textarea id="content" formControlName="content" class="custom_text-area"
+                placeholder="Contenu de l'article"></textarea>
     </div>
     <button type="submit" [disabled]="form.invalid">Créer</button>
     <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>

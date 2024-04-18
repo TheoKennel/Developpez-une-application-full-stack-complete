@@ -1,6 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 
+/**
+ * Composant générique de formulaire utilisé pour recueillir des entrées utilisateur à travers divers champs.
+ * Permet une réutilisation flexible dans différentes parties de l'application.
+ */
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
