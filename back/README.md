@@ -44,7 +44,7 @@ mvn clean install
 
 ```
 
-## Scrip
+## Script
 
 Dans mdd-presenter - test - ressources, vous trouvez les scription sql des tables si nécessaire. 7
 
