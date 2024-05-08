@@ -90,3 +90,65 @@ textarea {
 .comments > p {
   width: 14%;
 }
+
+.xsmall .details_page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column !important;
+  align-items: center;
+}
+
+.xsmall .arrow_back-details-page {
+  display: flex !important;
+  font-size: 34px !important;
+  width: 140px !important;
+  height: 25px !important;
+}
+
+.xsmall .details_right {
+  width: 100%;
+  height: 100%;
+  margin-top: 25px;
+}
+
+.xsmall h1 {
+  font-size: 24px;
+  margin-left: 25px ;
+  align-items: center;
+  margin-bottom: 45px;
+}
+
+.xsmall hr {
+  display: none;
+}
+
+.xsmall p {
+  font-size: 18px;
+  padding-right: 20px;
+}
+
+.xsmall .details_comment {
+  margin-top: 70px;
+  height: 120px;
+}
+
+.xsmall textarea {
+  width: 90%;
+  height: 60px;
+  font-size: 18px;
+}
+
+.xsmall .comment_content {
+  height: 60px;
+  width: 90%;
+  margin-bottom: 35px;
+
+}
+
+.xsmall .post-comment {
+  width: 80%;
+  margin-right: 15px;
+  margin-top: 20px;
+}
+

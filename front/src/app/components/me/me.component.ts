@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Subscription} from "../../features/articles/components/interface/subscription.interface";
 import {HttpErrorResponse} from "@angular/common/http";
+import {BreakpointService} from "../../services/breakpoint-screen.service";
 
 @Component({
   selector: 'app-me', templateUrl: './me.component.html', styleUrls: ['./me.component.scss']
@@ -22,6 +23,7 @@ export class MeComponent implements OnInit, OnDestroy {
   public subscriptions: Observable<Subscription[]> | undefined;
   public form: FormGroup | undefined;
   public errorMessage: string | null = null;
+  public screenSize!: string;
 
   private userId: string | null = null;
   private ngUnsubscribe: any = new Subject();
@@ -29,19 +31,21 @@ export class MeComponent implements OnInit, OnDestroy {
   constructor(private userService: UserApiService,
               private localStorage: LocalStorageService,
               private fb: FormBuilder,
-              private matSnackBar: MatSnackBar) {
+              private matSnackBar: MatSnackBar,
+              private breakpointService: BreakpointService) {
   }
 
   ngOnInit(): void {
     this.user$ = this.fetchUser();
     this.subscribeToUser();
     this.subscriptions = this.localStorage.subscriptionsSubject
+    this.responsiveBreakpoint()
   };
 
   /** Nettoie les ressources */
   ngOnDestroy() {
     this.ngUnsubscribe.next();
-    this.ngUnsubscribe.unsubscribe();
+    this.ngUnsubscribe.complete();
   }
 
   /** Soumet les données utilisateur */
@@ -107,6 +111,14 @@ export class MeComponent implements OnInit, OnDestroy {
         [Validators.required, Validators.email]
       ],
     });
+  }
+
+  /**
+   * Gère les changements de taille de l'écran pour le responsive design
+   */
+  private responsiveBreakpoint() {
+    this.breakpointService.screenSize$.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(screenSize => this.screenSize = screenSize);
   }
 
   /**

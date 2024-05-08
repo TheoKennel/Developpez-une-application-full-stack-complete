@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ArticleApiService} from "../services/article-api.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {SubjectApiService} from "../services/subject-api.service";
-import {Subject} from "../interface/subject.interface";
+import {Subject as InterfaceSubject} from "../interface/subject.interface";
+import {Subject, takeUntil} from "rxjs";
 import {Observable, of} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {LocalStorageService} from "../../../../storage/local-storage.service";
 import {ArticleRequest} from "../interface/articleRequest.interface";
 import {HttpErrorResponse} from "@angular/common/http";
+import {BreakpointService} from "../../../../services/breakpoint-screen.service";
 
 /**
  * Composant pour la création d'articles.
@@ -19,10 +21,12 @@ import {HttpErrorResponse} from "@angular/common/http";
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss']
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent implements OnInit, OnDestroy {
 
   public errorMessage: string | null = null;
-  public subject$: Observable<Subject[]> = new Observable<Subject[]>();
+  public subject$: Observable<InterfaceSubject[]> = new Observable<InterfaceSubject[]>();
+  public screenSize!: string;
+  private ngUnsubscribe: any = new Subject();
 
   public form = this.fb.group({
     subjectId: ['', [Validators.required]],
@@ -36,12 +40,14 @@ export class CreateComponent implements OnInit {
     private subjectApiService: SubjectApiService,
     private localStorage: LocalStorageService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private breakpointService: BreakpointService
   ) {
   }
 
   ngOnInit(): void {
     this.fetchSubjects();
+    this.responsiveBreakpoint();
   }
 
   /** Soumet le formulaire pour créer un nouvel article. */
@@ -52,7 +58,7 @@ export class CreateComponent implements OnInit {
       title: this.form.value.title!!,
       content: this.form.value.content!!
     };
-    this.articleService.create(articleRequest).subscribe({
+    this.articleService.create(articleRequest).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
       next: (_) => {
         this.errorMessage = "";
         this.exitPage("Article created successfully");
@@ -63,9 +69,14 @@ export class CreateComponent implements OnInit {
     });
   }
 
+  private responsiveBreakpoint() {
+    this.breakpointService.screenSize$.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(screenSize => this.screenSize = screenSize);
+  }
+
   /** Récupère tous les sujets disponibles pour sélection dans le formulaire. */
   private fetchSubjects(): void {
-    this.subjectApiService.allSubject().subscribe({
+    this.subjectApiService.allSubject().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
       next: (subjects) => {
         this.subject$ = of(subjects);
       },
@@ -75,6 +86,7 @@ export class CreateComponent implements OnInit {
       }
     });
   }
+
 
   /** Navigation pour retourner à la page précédente. */
   public back() {
@@ -88,6 +100,11 @@ export class CreateComponent implements OnInit {
   private exitPage(message: string): void {
     this.matSnackBar.open(message, 'Close', {duration: 3000});
     this.router.navigate(['/article']);
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }
 

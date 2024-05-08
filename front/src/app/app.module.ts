@@ -17,6 +17,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {ArticleModule} from "./features/articles/article.module";
 import {AuthModule} from "./features/auth/auth.module";
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, MeComponent, NotFoundComponent],
@@ -32,6 +33,7 @@ import {AuthModule} from "./features/auth/auth.module";
     FlexModule,
     MatToolbarModule,
     MatIconModule,
+    MatSidenavModule,
     ArticleModule,
     AuthModule
   ],

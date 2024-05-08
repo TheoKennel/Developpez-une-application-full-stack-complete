@@ -1,17 +1,28 @@
-<div class="app">
-    <div class="header" fxLayout="row" fxLayoutAlign="space-between center"  *ngIf="$isLoggedIn() | async; else notLogged">
-      <img src="assets/logo_p6.png" alt="logo" routerLink="article"/>
-      <div class="header_right" fxLayoutAlign="space-between center">
-        <span routerLink="article" class="link">Articles</span>
-        <span routerLink="subject" class="link">Thèmes</span>
-        <i class="fa-solid fa-circle-user fa-3x link"  style="background-color: #ffffff" routerLink="me"></i>
-        <span routerLink="me" class="link"></span>
-      </div>
+<div class="app" [ngClass]="screenSize">
+  <div class="header" fxLayout="row" fxLayoutAlign="space-between center"
+       *ngIf="($isLoggedIn() | async) else notLogged">
+    <img src="assets/logo_p6.png" alt="logo" routerLink="article"/>
+    <div class="header_right" fxLayoutAlign="space-between center" *ngIf="screenSize != 'small' && screenSize!== 'xsmall'">
+      <span routerLink="article" class="link">Articles</span>
+      <span routerLink="subject" class="link">Thèmes</span>
+      <i class="fa-solid fa-circle-user fa-3x link" style="background-color: #ffffff" routerLink="me"></i>
+      <span routerLink="me" class="link"></span>
     </div>
-  <ng-template #notLogged>
-    <div>
-    <img src="assets/logo_p6.png" alt="logo" routerLink="/"/>
+    <div  class="menu_hamburger"  #menu_hamburger *ngIf="screenSize === 'small'  || screenSize === 'xsmall'">
+    <div class="burger" (click)="toggleMenu()">
+      <i class="material-icons">{{ isMenuOpen ? "close" : "menu" }}</i>
     </div>
-  </ng-template>
+      <ul class="menu" [class.is-open]="isMenuOpen" *ngIf="isMenuOpen">
+        <li class="menu_item" routerLink="article">Articles</li>
+      <li class="menu_item" routerLink="subject">Thèmes</li>
+        <i class="fa-solid fa-circle-user fa-3x menu_item link" style="background-color: #ffffff" routerLink="me"></i>
+    </ul>
+    </div>
+  </div>
 </div>
+<ng-template #notLogged><
+  <div>
+    <img src="assets/logo_p6.png" alt="logo" routerLink="/"/>
+  </div>
+</ng-template>
 <router-outlet></router-outlet>

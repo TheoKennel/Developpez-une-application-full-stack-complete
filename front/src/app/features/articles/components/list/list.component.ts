@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
-import {map, Observable} from "rxjs";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {map, Observable, Subject, takeUntil} from "rxjs";
 import {Article} from "../interface/article.interface";
 import {ArticleApiService} from "../services/article-api.service";
+import {BreakpointService} from "../../../../services/breakpoint-screen.service";
 
 /**
  * Composant pour lister les articles.
@@ -11,13 +12,33 @@ import {ArticleApiService} from "../services/article-api.service";
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent {
+export class ListComponent implements OnInit, OnDestroy {
 
   public articles$: Observable<Article[]> = this.articleApiService.all();
+  public screenSize!: string;
+  private ngUnsubscribe: any = new Subject();
 
   constructor(
-    private articleApiService: ArticleApiService
-  ) {
+    private articleApiService: ArticleApiService,
+    private breakpointService: BreakpointService
+    ) {
+  }
+
+  ngOnInit() {
+    this.responsiveBreakpoint();
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
+  /**
+   * Détermine la taille de l'écran.
+   */
+  private responsiveBreakpoint() {
+    this.breakpointService.screenSize$.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(screenSize => this.screenSize = screenSize);
   }
 
   /**

@@ -1,4 +1,4 @@
-<div class="list-main" fxLayout="column">
+<div class="list-main" fxLayout="column"  [ngClass]="screenSize">
   <div class="list-items" fxLayout="row wrap">
     <div class="article_header" fxLayout="row">
       <button [routerLink]="['/article/create']">

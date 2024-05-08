@@ -1,6 +1,8 @@
+$menuHeight: 60px;
+$menuBreakpoint: 768px;
+
 .app {
   width: 100vw;
-  height: 104px;
   border-bottom: 1px solid black;
   overflow-y: hidden ;
 }
@@ -28,3 +30,52 @@ img {
   font-weight: 500;
 }
 
+.menu_hamburger {
+  width: 60%;
+  margin-bottom: 55px;
+}
+
+  .burger {
+    padding: 0 10px;
+    right: 0;
+    position: absolute;
+    cursor: pointer;
+
+    i {
+      color: #999;
+      line-height: $menuHeight;
+      font-size: 3rem; // Adjust the size of the icon
+    }
+  }
+
+  .menu {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+
+     &.is-open {
+      display: block;
+      flex-direction: column; // Stack the items vertically
+      justify-content: space-between; // Distribute space evenly between the items
+      align-items: flex-end; // Align items to the right
+      position: absolute;
+      font-size: 25px;
+      top: 0;
+      background: #fff;
+      height: 100%; // Make the menu take the full height when open
+    }
+
+    .logo-mobile {
+      margin-top: 250px;
+      margin-left: 80px;
+    }
+
+    .menu_item {
+      padding: 50px 0;
+      width: 100%;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: 500;
+      list-style: none;
+    }
+  }

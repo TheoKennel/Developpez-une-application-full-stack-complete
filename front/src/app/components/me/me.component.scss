@@ -49,3 +49,41 @@ p {
   margin-top: 45px;
   width: 100%;
 }
+
+.xsmall  input {
+  width: 150px;
+}
+
+.xsmall h2 {
+  font-size: 18px;
+  margin-top: -15px;
+}
+
+.xsmall button {
+  width: 110px;
+  font-size: 14px;
+}
+
+.xsmall h3 {
+  font-size: 12px;
+}
+
+.xsmall .subscriptions_me {
+  margin-top: 25px;
+}
+
+.xsmall .me_component {
+  height: 70%;
+  margin-top: 5px;
+}
+
+.xsmall form {
+  margin-top: 5px;
+}
+
+.xsmall .list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}

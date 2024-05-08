@@ -77,3 +77,24 @@ button {
   cursor: pointer;
 }
 
+.xsmall .list-items {
+  padding : 0;
+}
+
+.xsmall .article_header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin-bottom: 2px !important;
+}
+
+.xsmall .article_header-filter {
+  margin-top: 15px;
+}
+
+.xsmall .list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}

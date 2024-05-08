@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotFoundComponent } from './not-found.component';
+import {expect} from '@jest/globals';
+
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;

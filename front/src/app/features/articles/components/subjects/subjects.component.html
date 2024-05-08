@@ -1,4 +1,4 @@
-<div class="list-items" fxLayout="row wrap">
+<div class="list-items" fxLayout="row wrap" [ngClass]="screenSize">
   <div class="list" fxLayoutAlign="space-between" *ngFor="let subject of (subject$ | async)">
     <div class="list-details" fxLayout="column">
       <h1>{{ subject.name }}</h1>

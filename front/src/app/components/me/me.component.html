@@ -1,4 +1,4 @@
-<div class="me_component" *ngIf="form">
+<div class="me_component" *ngIf="form"  [ngClass]="screenSize">
   <div fxLayout="column" fxLayoutAlign="center center">
     <h2>Profil utilisateur</h2>
     <form [formGroup]="form" fxLayout="column" class="form-container" (ngSubmit)="submit()">

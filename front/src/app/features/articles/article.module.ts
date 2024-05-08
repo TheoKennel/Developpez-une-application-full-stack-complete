@@ -7,7 +7,7 @@ import {FlexModule} from "@angular/flex-layout";
 import {RouterLink, RouterModule} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
-import {AsyncPipe, DatePipe, NgForOf, NgIf, NgStyle} from "@angular/common";
+import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {ArticleRoutingModule} from "./article-routing.module";
 import {AuthModule} from "../auth/auth.module";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
@@ -23,22 +23,23 @@ import {SubjectsComponent} from "./components/subjects/subjects.component";
     SubscriptionsComponent,
     SubjectsComponent
   ],
-  imports: [
-    MatCardModule,
-    MatSnackBarModule,
-    FlexModule,
-    ArticleRoutingModule,
-    RouterLink,
-    MatButtonModule,
-    MatIconModule,
-    AsyncPipe,
-    DatePipe,
-    NgForOf,
-    AuthModule,
-    NgStyle,
-    NgIf,
-    ReactiveFormsModule
-  ],
+    imports: [
+        MatCardModule,
+        MatSnackBarModule,
+        FlexModule,
+        ArticleRoutingModule,
+        RouterLink,
+        MatButtonModule,
+        MatIconModule,
+        AsyncPipe,
+        DatePipe,
+        NgForOf,
+        AuthModule,
+        NgStyle,
+        NgIf,
+        ReactiveFormsModule,
+        NgClass
+    ],
   exports: [
     SubscriptionsComponent
   ]
