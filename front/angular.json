@@ -3,11 +3,14 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "front": {
+    "mdd": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
       "root": "",
@@ -15,19 +18,22 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "outputPath": "dist/front",
+            "outputPath": "dist/mdd",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.png", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.css",
-              "src/styles/styles.scss"
+              "src/styles/styles.scss",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": []
           },
@@ -75,20 +81,30 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "project-name:build",
+            "proxyConfig": "src/proxy.config.json"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "front:build:production"
+              "browserTarget": "mdd:build:production"
             },
             "development": {
-              "browserTarget": "front:build:development"
+              "browserTarget": "mdd:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
+        "serve-coverage": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "browserTarget": "mdd:build:e2e"
+          }
+        },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "front:build"
+            "browserTarget": "mdd:build"
           }
         },
         "test": {
@@ -108,11 +124,11 @@
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "yoga:serve"
+            "devServerTarget": "mdd:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "yoga:serve:production"
+              "devServerTarget": "mdd:serve:production"
             }
           }
         },
@@ -126,13 +142,13 @@
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "yoga:serve-coverage",
+            "devServerTarget": "mdd:serve-coverage",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "yoga:serve-coverage:production"
+              "devServerTarget": "mdd:serve-coverage:production"
             }
           }
         },
@@ -140,17 +156,20 @@
           "builder": "@cypress/schematic:cypress",
           "options": {
             "browser": "chrome",
-            "devServerTarget": "yoga:serve-coverage",
+            "devServerTarget": "mdd:serve-coverage",
             "headless": true,
             "watch": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "yoga:serve-coverage:production"
+              "devServerTarget": "mdd:serve-coverage:production"
             }
           }
         }
-        }
       }
+    }
+  },
+  "cli": {
+    "analytics": false
   }
 }
